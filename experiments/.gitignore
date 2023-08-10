@@ -1,0 +1,5 @@
+# Ignore plots and numpy caches
+*.npz
+*.html
+*.png
+*.svg
