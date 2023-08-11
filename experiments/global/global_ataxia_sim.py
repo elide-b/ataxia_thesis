@@ -4,7 +4,7 @@ from ataxia.connectivity import load_mousebrain
 from ataxia.simulation import simulate
 
 # Mouse brain
-mb_allen84 = load_mousebrain("allen84")
+mb_allen84 = load_mousebrain("allen84.zip")
 nreg = len(mb_allen84.weights)
 
 # Time variables
