@@ -2,8 +2,10 @@ import os
 import typing
 from typing import Literal
 
+import h5py as h5py
 import numpy as np
-import tvb.datatypes.connectivity
+from tvb.datatypes.connectivity import Connectivity
+from pathlib import Path
 
 
 _cereb_labels = [
@@ -24,14 +26,37 @@ _cereb_labels = [
 ]
 
 
-def _load_mousebrain(subject):
+def _load_mousebrain_zip(subject):
+    datadir = Path(__file__).parent / "../mouse_brains/dataset/conn/"
     try:
-        datadir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../mouse_brains/dataset/conn/"))
-        return tvb.datatypes.connectivity.Connectivity.from_file(os.path.join(datadir, f"{subject}.zip"))
+        return Connectivity.from_file(str(datadir / subject))
     except FileNotFoundError:
         raise FileNotFoundError(
             f"Mouse brain {subject} not found. Choose: "
-            + ", ".join(k[:-4] for k in os.listdir(datadir) if k.endswith(".zip"))
+            + ", ".join(k[:-4] for k in os.listdir(str(datadir)) if k.endswith(".zip"))
+        ) from None
+
+
+def _load_mousebrain_h5(subject):
+    datadir = Path(__file__).parent / "../mouse_brains/dataset/h5/"
+    try:
+        with h5py.File(str(datadir / subject)) as f:
+            centres = np.array(f["centres"][()])
+            region_labels = np.array(f["region_labels"][()]).astype("<U128")
+            weights = np.array(f["weights"][()])
+            tract_lengths = np.array(f["tract_lengths"][()])
+            brain = Connectivity(
+                centres=centres,
+                region_labels=region_labels,
+                weights=weights,
+                tract_lengths=tract_lengths,
+            )
+        return brain
+
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"Mouse brain {subject} not found. Choose: "
+            + ", ".join(k[:-3] for k in os.listdir(str(datadir)) if k.endswith(".h5"))
         ) from None
 
 
@@ -40,11 +65,12 @@ def load_mousebrain(
     rem_diag: bool = True,
     scale: typing.Union[bool, Literal["tract"], Literal["region"]] = "region",
     norm: bool = True,
-) -> tvb.datatypes.connectivity.Connectivity:
+) -> Connectivity:
     """
     Load a mouse brain from the `mouse_brains` data folder. The mouse brain is processed
     with the following steps:
 
+    * Replace any nan by 0.
     * Remove the diagonal weights; Connections to self are modeled internally in the
       node's model, not as node-connection inputs.
     * Scale the weights: The sum of either the inputs on, or outputs of each node will be
@@ -59,7 +85,12 @@ def load_mousebrain(
     :param subject:
     :return: The processed mouse brain
     """
-    brain = _load_mousebrain(subject)
+    if subject.endswith(".zip"):
+        brain = _load_mousebrain_zip(subject)
+    elif subject.endswith(".h5"):
+        brain = _load_mousebrain_h5(subject)
+    else:
+        raise ValueError("Only .zip and .h5 are supported.")
     if rem_diag:
         np.fill_diagonal(brain.weights, 0)
     if scale:
