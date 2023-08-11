@@ -1,5 +1,3 @@
-import logging
-
 import numpy as np
 from tvb.simulator import noise
 from tvb.simulator.coupling import Linear, Scaling
@@ -8,7 +6,6 @@ from tvb.simulator.models.wong_wang import ReducedWongWang
 from tvb.simulator.monitors import Bold, TemporalAverage
 from tvb.simulator.simulator import Simulator
 
-from ataxia.connectivity import get_cereb_region_mask
 from ataxia.disease import ataxic_w, ataxic_weights
 
 
