@@ -91,6 +91,7 @@ def load_mousebrain(
         brain = _load_mousebrain_h5(subject)
     else:
         raise ValueError("Only .zip and .h5 are supported.")
+    brain.weights[np.isnan(brain.weights)] = 0.0
     if rem_diag:
         np.fill_diagonal(brain.weights, 0)
     if scale:
