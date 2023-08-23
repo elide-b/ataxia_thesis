@@ -63,9 +63,8 @@ def _load_mousebrain_h5(subject):
 def load_mousebrain(
     subject: str,
     rem_diag: bool = True,
-    scale: typing.Union[Literal[False], Literal["tract"], Literal["region"]] = "region",
-    norm: typing.Union[Literal[False], Literal["max"], Literal["pct"]] = "max",
-) -> tvb.datatypes.connectivity.Connectivity:
+    dt: float = 0.1
+) -> Connectivity:
     """
     Load a mouse brain from the `mouse_brains` data folder. The mouse brain is processed
     with the following steps:
@@ -77,10 +76,12 @@ def load_mousebrain(
       each node to one.
     * Normalize the matrix: All values will be divided by either the maximum value or the
       99th percentile.
+    * Guarantee minimum tract length: The tract length will be made minimally dt * speed long
 
     Each step can be toggled with its keyword argument
 
     :param subject: The name of the mouse brain to load, with extension.
+    :param dt: Minimum timestep for propagation of the signal along tracts.
     :param rem_diag: Toggles the "remove diagonal" step.
     :param scale: "tract" scales the output weights, "region" scales the input weights.
     :param norm: "max" normalizes by the maximum value, "pct" by the 99th percentile.
@@ -101,6 +102,8 @@ def load_mousebrain(
         brain.weights /= np.max(brain.weights)
     elif norm == "pct":
         brain.weights /= np.percentile(brain.weights, 99)
+    brain.tract_lengths = np.maximum(brain.speed * dt, brain.tract_lengths)
+    brain.configure()
     return brain
 
 
