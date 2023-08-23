@@ -63,7 +63,9 @@ def _load_mousebrain_h5(subject):
 def load_mousebrain(
     subject: str,
     rem_diag: bool = True,
-    dt: float = 0.1
+    scale: typing.Union[Literal[False], Literal["tract"], Literal["region"]] = "region",
+    norm: typing.Union[Literal[False], Literal["max"], Literal["pct"]] = "max",
+    dt: float = 0.1,
 ) -> Connectivity:
     """
     Load a mouse brain from the `mouse_brains` data folder. The mouse brain is processed
