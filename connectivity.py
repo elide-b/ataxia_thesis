@@ -63,9 +63,9 @@ def _load_mousebrain_h5(subject):
 def load_mousebrain(
     subject: str,
     rem_diag: bool = True,
-    scale: typing.Union[bool, Literal["tract"], Literal["region"]] = "region",
-    norm: bool = True,
-) -> Connectivity:
+    scale: typing.Union[Literal[False], Literal["tract"], Literal["region"]] = "region",
+    norm: typing.Union[Literal[False], Literal["max"], Literal["pct"]] = "max",
+) -> tvb.datatypes.connectivity.Connectivity:
     """
     Load a mouse brain from the `mouse_brains` data folder. The mouse brain is processed
     with the following steps:
@@ -73,16 +73,17 @@ def load_mousebrain(
     * Replace any nan by 0.
     * Remove the diagonal weights; Connections to self are modeled internally in the
       node's model, not as node-connection inputs.
-    * Scale the weights: The sum of either the inputs on, or outputs of each node will be
-      scaled to one
-    * Normalize the matrix: All values will be multiplied so the max value is 1.
+    * Scale the weights: Either scales the sum of the inputs, or the sum of the outputs of
+      each node to one.
+    * Normalize the matrix: All values will be divided by either the maximum value or the
+      99th percentile.
 
     Each step can be toggled with its keyword argument
 
+    :param subject: The name of the mouse brain to load, with extension.
     :param rem_diag: Toggles the "remove diagonal" step.
-    :param scale:
-    :param norm: Toggles the "normalize" step.
-    :param subject:
+    :param scale: "tract" scales the output weights, "region" scales the input weights.
+    :param norm: "max" normalizes by the maximum value, "pct" by the 99th percentile.
     :return: The processed mouse brain
     """
     if subject.endswith(".zip"):
@@ -96,8 +97,10 @@ def load_mousebrain(
         np.fill_diagonal(brain.weights, 0)
     if scale:
         brain.weights = brain.scaled_weights(scale)
-    if norm:
+    if norm == "max":
         brain.weights /= np.max(brain.weights)
+    elif norm == "pct":
+        brain.weights /= np.percentile(brain.weights, 99)
     return brain
 
 

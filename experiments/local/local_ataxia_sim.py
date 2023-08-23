@@ -4,8 +4,8 @@ from ataxia.connectivity import load_mousebrain
 from ataxia.simulation import simulate
 
 # Mouse brain
-mb_allen84 = load_mousebrain("allen84.zip")
-nreg = len(mb_allen84.weights)
+brain = load_mousebrain("allen84.zip")
+nreg = len(brain.weights)
 
 # Time variables
 dt = 0.1
@@ -25,7 +25,7 @@ data_bold = np.empty((nk, ng, nreg, N_bold), dtype=float)
 for ik, k in enumerate(k_range):
     for ig, g in enumerate(g_range):
         print(f"Simulating (k={k},g={g})")
-        (t1, _tavg), (t2, _bold) = simulate(mb_allen84, T, dt=dt, k=k, gamma=g)
+        (t1, _tavg), (t2, _bold) = simulate(brain, T, dt=dt, k=k, gamma=g)
         data_tavg[ik, ig] = _tavg
         data_bold[ik, ig] = _bold
 
