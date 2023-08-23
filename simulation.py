@@ -21,7 +21,9 @@ def simulate(
     sigma=0.015,
     coupling="scaling",
     G=0.11,
-    wholebrain=False
+    wholebrain=False,
+    bold_res=10000,
+    tavg_res=10
 ):
     simulator = Simulator()
     simulator.connectivity = brain
@@ -41,8 +43,8 @@ def simulate(
             simulator.integrator.noise = noise.Additive(nsig=np.r_[(sigma**2) / 2])
         else:
             simulator.integrator = EulerDeterministic(dt=dt)
-        mon_tavg = TemporalAverage(period=dt * 10)
-        mon_bold = Bold(period=dt * 10000)
+        mon_tavg = TemporalAverage(period=dt * tavg_res)
+        mon_bold = Bold(period=dt * bold_res)
         simulator.monitors = (mon_tavg, mon_bold)
         simulator.configure()
         (t1, tavg), (t2, bold) = simulator.run(simulation_length=simlen)
