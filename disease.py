@@ -12,7 +12,6 @@ from ataxia.connectivity import get_cereb_region_mask
 def ataxic_weights(
     brain: tvb.datatypes.connectivity.Connectivity,
     factor: float,
-    from_to: bool = True,
     wholebrain: bool = False,
 ) -> Generator[None, None, None]:
     """
@@ -28,34 +27,22 @@ def ataxic_weights(
 
     :param brain:
     :param factor:
-    :param from_to:
     :param wholebrain:
     :return:
     """
     is_cereb = get_cereb_region_mask(brain)
-    # Construct the index of weights to set
-    # Cerebellum-only: weights[is_cereb, :] *= factor
-    index = [is_cereb, slice(None)]
+    old_weights = brain.weights.copy()
     if wholebrain:
-        # Whole brain -> weights[:, :] *= factor
-        index[0] = slice(None)
-    if not from_to:
-        # Not sure if the weights matrix is node[from, to] or node[to, from]?
-        # If from_to is false we revert the index to weights[to, from]
-        index.reverse()
-    index = tuple(index)
-    # Use the index to alter the correct weights in the matrix
-    pre = brain.weights[index].mean()
-    old_weights = np.copy(brain.weights)
-    brain.weights[index] *= factor
-    post = brain.weights[index].mean()
-    # Calculate a message to display when debugging
-    stri = ",".join(":" if isinstance(i, slice) or wholebrain else "cereb_nodes" for i in index)
-    logging.debug(f"Ataxia weights[{stri}] factor = {round(post / pre, 2)}")
-    # This is a context manager, yield is the breakpoint where we reenter when the context
-    # exits
+        # Whole brain -> Change all weights
+        brain.weights[:, :] *= factor
+    else:
+        # Cerebellum-only: change all cereb to non-cereb weights
+        cereb = brain.weights[is_cereb]
+        cereb[:, ~is_cereb] *= factor
+        brain.weights[is_cereb] = cereb
+    # In contextlib.contextmanager, yield is where we pause waiting for the context exit.
     yield
-    # When exiting the context, reset the weights to their initial values, as not to mutate
+    # After exiting the context, reset the weights to their initial values, as not to mutate
     # the connectivity that was passed in.
     brain.weights = old_weights
 
