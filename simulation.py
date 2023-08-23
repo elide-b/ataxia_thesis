@@ -23,7 +23,7 @@ def simulate(
     G=0.11,
     wholebrain=False,
     bold_res=10000,
-    tavg_res=10
+    tavg_res=10,
 ):
     simulator = Simulator()
     simulator.connectivity = brain
