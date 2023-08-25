@@ -13,6 +13,7 @@ def ataxic_weights(
     brain: tvb.datatypes.connectivity.Connectivity,
     factor: float,
     wholebrain: bool = False,
+    from_to: bool = True,
 ) -> Generator[None, None, None]:
     """
     A context manager to induce ataxia by editing the connectivity of the nodes.
@@ -28,6 +29,7 @@ def ataxic_weights(
     :param brain:
     :param factor:
     :param wholebrain:
+    :param from_to:
     :return:
     """
     is_cereb = get_cereb_region_mask(brain)
@@ -35,11 +37,17 @@ def ataxic_weights(
     if wholebrain:
         # Whole brain -> Change all weights
         brain.weights[:, :] *= factor
-    else:
+    elif from_to:
         # Cerebellum-only: change all cereb to non-cereb weights
+        # Assume conn matrix is `weights[from, to]`
         cereb = brain.weights[is_cereb]
         cereb[:, ~is_cereb] *= factor
         brain.weights[is_cereb] = cereb
+    else:
+        # Assume conn matrix is `weights[to, from]`
+        cereb = brain.weights[:, is_cereb]
+        cereb[~is_cereb] *= factor
+        brain.weights[:, is_cereb] = cereb
     # In contextlib.contextmanager, yield is where we pause waiting for the context exit.
     yield
     # After exiting the context, reset the weights to their initial values, as not to mutate

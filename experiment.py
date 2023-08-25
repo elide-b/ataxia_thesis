@@ -29,6 +29,9 @@ class Parameter(_Component):
         self._current_index = -1
         return self
 
+    def __getitem__(self, item):
+        return self._values[item]
+
     def __next__(self):
         self._current_index += 1
         try:
@@ -97,6 +100,8 @@ class LinspaceParameter(Parameter):
 class ConstantParameter(Parameter):
     def __init__(self, value):
         super().__init__([value])
+        self._current_index = 0
+        self._current_value = value
 
 
 class Result(_Component):
