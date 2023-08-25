@@ -24,12 +24,13 @@ def simulate(
     wholebrain=False,
     bold_res=10000,
     tavg_res=10,
+    from_to=True,
 ):
     simulator = Simulator()
     simulator.connectivity = brain
-    with ataxic_weights(brain, gamma, wholebrain=wholebrain):
+    with ataxic_weights(brain, gamma, wholebrain=wholebrain, from_to=from_to):
         w = ataxic_w(brain, w, k, wholebrain=wholebrain)
-        simulator.model = ReducedWongWang(w=w, I_o=np.array(I_o))
+        simulator.model = ReducedWongWang(w=np.array(w), I_o=np.array(I_o))
         simulator.model.dt = dt
         if coupling == "scaling":
             simulator.coupling = Scaling(a=np.array(G))
@@ -40,7 +41,9 @@ def simulate(
         simulator.initial_conditions = (0.001) * np.ones((1, 1, len(brain.weights), 1))
         if stoc:
             simulator.integrator = HeunStochastic(dt=dt)
-            simulator.integrator.noise = noise.Additive(nsig=np.r_[(sigma**2) / 2])
+            simulator.integrator.noise = noise.Additive(
+                nsig=np.array([(sigma**2) / 2]), noise_seed=1
+            )
         else:
             simulator.integrator = EulerDeterministic(dt=dt)
         mon_tavg = TemporalAverage(period=dt * tavg_res)
