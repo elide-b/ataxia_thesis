@@ -104,6 +104,15 @@ class ConstantParameter(Parameter):
         self._current_value = value
 
 
+class BoolParameter(Parameter):
+    def __init__(self, value: bool = None):
+        if value is None:
+            values = [False, True]
+        else:
+            values = [value]
+        super().__init__(values)
+
+
 class Result(_Component):
     def __init__(self, shape, dtype=float):
         super().__init__()

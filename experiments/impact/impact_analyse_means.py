@@ -9,7 +9,7 @@ experiment, meta = Experiment.load("impact")
 means = np.mean(experiment.tavg[0], axis=2)
 meandiff = means[-1] - means[0]
 remaindiff = (means[-1] - means[0]) / (1 - means[0])
-wlabel = "from, to" if meta.get("from_to", True) else "to, from"
+wlabel = "from, to" if experiment.from_to else "to, from"
 go.Figure(
     [
         go.Scatter(
