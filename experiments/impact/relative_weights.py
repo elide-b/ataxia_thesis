@@ -72,7 +72,14 @@ class Edge:
 
 
 def get_node_name(name):
-    return name.split("Right_")[-1].split("Left_")[-1].split(",")[0]
+    return (
+        name.split("Right_")[-1]
+        .split("Left_")[-1]
+        .split(",")[0]
+        .replace("(", "")
+        .replace(")", "")
+        .replace("'", "")
+    )
 
 
 nodes = {
