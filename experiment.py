@@ -168,6 +168,10 @@ class Experiment:
         for result in self._results.values():
             result.init_data(self.get_parameter_shape())
 
+    @property
+    def parameters(self):
+        return self._parameters.copy()
+
     def __getattr__(self, name) -> _Component:
         try:
             return self._components[name]

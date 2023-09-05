@@ -30,5 +30,3 @@ for ik, k in enumerate(k_range):
         data_bold[ik, ig] = _bold
 
 np.savez("global_ataxia.npz", tavg=data_tavg, bold=data_bold)
-
-import ataxia_256
