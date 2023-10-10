@@ -17,3 +17,4 @@ plot_activity(
         "Global ataxia (weights)": reduce(data["tavg"][1, 0]),
     }
 ).write_html("global_ataxia.html")
+
