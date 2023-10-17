@@ -26,6 +26,8 @@ def simulate(
     tavg_res=10,
     from_to=True,
 ):
+    bold_res = min(simlen, bold_res)
+    tavg_res = min(simlen, tavg_res)
     simulator = Simulator()
     simulator.connectivity = brain
     with ataxic_weights(brain, gamma, wholebrain=wholebrain, from_to=from_to):
@@ -51,5 +53,6 @@ def simulate(
         simulator.monitors = (mon_tavg, mon_bold)
         simulator.configure()
         (t1, tavg), (t2, bold) = simulator.run(simulation_length=simlen)
+        print(t1.shape, tavg.shape, t2.shape, bold.shape)
 
     return (t1, tavg[:, 0, :, 0].T), (t2, bold[:, 0, :, 0].T)
