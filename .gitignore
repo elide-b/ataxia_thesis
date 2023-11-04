@@ -1,2 +1,13 @@
-*.pyc
+*.npz
+*.hdf5
 __pycache__
+*.pyc
+
+.idea/
+__MACOSX/
+.ipynb_checkpoints/
+*.png
+.DS_Store
+*.zip
+data/*
+*.html
