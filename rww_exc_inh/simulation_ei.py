@@ -14,8 +14,7 @@ with np.load("masked_brain.npz") as brain:
 
 connectivity = Connectivity(weights=weights, centres=centers, tract_lengths=tract_lengths, region_labels=region_labels)
 nreg = len(connectivity.region_labels)
-
-# plot_weights(connectivity).write_html("brain_weights.html")
+# plot_weights(connectivity).write_html("brain_weights_masked.html")
 
 rww = ReducedWongWangExcIOInhI(J_i=np.array(10))
 sim = simulator.Simulator(
@@ -34,11 +33,10 @@ sim.configure()
 
 (t, data), = sim.run(simulation_length=1000)
 
-np.savez("firing_rate.npz", tavg=data, time=t)
+np.savez("firing_rate_masked.npz", tavg=data, time=t)
 
 # simulazione anche per il brain normale
 # effetto sulle aree più connesse ai DCN -> se non c'è impatto aumentiamo G su aree cerebellari (ma evitiamo)
-# resting state networks literature + firing rates di TVB
 # selezione subnetwork e cambio G per ottimizzare su computational model (finchè non abbiamo i dati)
 # TESI: TVMB -> Allen normalizzazione e maschera, simulazioni e ottimizzazione parametri per avoid saturation in model (G, J_i), resting state networks
 # ottimizzazione tridimensionale G, J_i, rate
