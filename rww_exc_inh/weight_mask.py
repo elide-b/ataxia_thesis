@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 
 # Mouse brain
 data_dir = os.path.dirname(__file__) + "\\.."
-brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm=False, scale=False)
-m_brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm=False, scale=False)
+brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm="log", scale="region")
+m_brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm="log", scale="region")
 
-
+# Finding the ids of cc and cn
 cc_labels = [
     "Lingula (I)",
     "Central lobule",
@@ -27,11 +27,13 @@ cc_labels = [
     "Paraflocculus",
     "Flocculus",
 ]
+
 cn_labels = ["Interposed nucleus",
              "Dentate nucleus",
              "Fastigial nucleus",
              "Vestibulocerebellar nucleus"
-             ]
+]
+
 nreg = len(m_brain.weights)
 cc_ids = [i for i in range(nreg) if any(b in m_brain.region_labels[i] for b in cc_labels)]
 assert len(cc_ids) == len(cc_labels) * 2,\
@@ -41,6 +43,7 @@ cn_ids = [i for i in range(nreg) if any(b in m_brain.region_labels[i] for b in c
 assert len(cn_ids) == len(cn_labels) * 2,\
     f"Expected {len(cn_labels) * 2} cereb cortex labels, but found {len(cn_ids)}"
 
+# setting the weights of the input weights to the cerebellar nuclei to negative
 for id in cc_ids:
     m_brain.weights[cn_ids, id] *= -1
 
@@ -49,8 +52,8 @@ print(m_brain.weights.shape)
 print(np.max(brain.weights), np.max(m_brain.weights), np.min(brain.weights), np.min(m_brain.weights))
 # plot_weights(m_brain).write_html("mask_weights.html")
 # plot_weights(brain).write_html("normal_weights.html")
-#
+
 # diff = m_brain.weights - brain.weights
-#plot_matrix(diff).write_html("diff.html")
+# plot_matrix(diff).write_html("diff.html")
 
 np.savez("masked_brain.npz", connectivity=m_brain, weights= m_brain.weights, centers=m_brain.centres, tract_lengths=m_brain.tract_lengths, region_labels=m_brain.region_labels)

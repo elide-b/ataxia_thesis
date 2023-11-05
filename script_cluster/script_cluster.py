@@ -1,32 +1,17 @@
 import numpy as np
 from tvb.simulator.lab import *
 from ataxia.connectivity import load_mousebrain
-from rww_model_mary import *
+from rww_exc_inh.rww_model_mary import *
 from ataxia.plots import plot_weights
 
-""" Script di sweep delle variabili a, J_i, w_p, e W_i per ottimizzazione nel caso sano"""
+"""Script di sweep delle variabili a, J_i, w_p, e W_i per ottimizzazione nel caso sano"""
 
 # Loading mouse brain
 data_dir = os.path.dirname(__file__) + "\\.."
-brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm=False, scale=False)
+# Log normalization and scaled by region
+brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm="log", scale="region")
 nreg = len(brain.weights)
-
-# Log normalize the weights of the connectome
-w = brain.weights.copy()
-w[np.isnan(w)] = 0.0
-w0 = w <= 0
-w_positive = w > 0
-w /= w[w_positive].min()
-w *= np.exp(1)
-w[w_positive] = np.log(w[w_positive])
-w[w0] = 0.0
-brain.weights = w
-
-# Connectivity normalization
-brain.weights[np.isnan(brain.weights)] = 0.0
-brain.weights = brain.scaled_weights(mode="region")
-brain.weights /= np.percentile(brain.weights, 99)
-plot_weights(brain).write_html("norm_brain_weights.html")
+plot_weights(brain).write_html("brain_weights.html")
 
 # Time variables
 dt = 0.1
@@ -73,4 +58,4 @@ for ia, a in enumerate(a_range):
                 (t, _tavg), = simulate(a=a, J_i=Ji, w_p=wp, W_i=wi)
                 data_tavg[ia, iJi, iwp, iwi] = np.swapaxes(_tavg, 0, 3)
 
-np.savez("opt_firing_rate_healthy.npz", tavg=tavg, time=t, a=a_range, J_i=Ji_range, w_p=wp_range, W_i=wi_range)
+np.savez("opt_parameters_healthy.npz", tavg=_tavg, time=t, a=a_range, J_i=Ji_range, w_p=wp_range, W_i=wi_range)
