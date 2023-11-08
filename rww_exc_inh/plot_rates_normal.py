@@ -13,7 +13,6 @@ with np.load("firing_rate_normal.npz") as rates:
 # R_e = data[:, 2, :, 0]
 # R_i = data[:, 3, :, 0]
 
-
 # Matrix access in parameter-sweep format
 for ia, a in enumerate(a_range):
     for iJi, Ji in enumerate(Ji_range):
@@ -23,21 +22,25 @@ for ia, a in enumerate(a_range):
         R_i = data[ia, iJi, 3]
         plt.figure()
         for regS_e in S_e:
-            plt.plot(t, regS_e, color='r', label='S_E')
+            plt.plot(t, regS_e, label='S_E')
+        plt.title('Synaptic gating E for a=' + str(a) + ' J_i=' + str(Ji))
+        plt.legend()
+
+        plt.figure()
         for regS_i in S_i:
-            plt.plot(t, regS_i, color='b', label='S_I')
-        plt.title('Synaptic gating variables for a='+str(a)+' J_i='+str(Ji))
+            plt.plot(t, regS_i, label='S_I')
+        plt.title('Synaptic gating I for a='+str(a)+' J_i='+str(Ji))
         plt.legend()
 
         plt.figure()
         for regR_e in R_e:
-            plt.plot(t, regR_e, color='r', label='r_E')
+            plt.plot(t, regR_e, label='r_E')
         plt.title('Firing rates E for a='+str(a)+' J_i='+str(Ji))
         plt.legend()
 
         plt.figure()
         for regR_i in R_i:
-            plt.plot(t, regR_i, color='b', label='r_I')
+            plt.plot(t, regR_i, label='r_I')
         plt.title('Firing rates I for a='+str(a)+' J_i='+str(Ji))
         plt.legend()
         plt.show()

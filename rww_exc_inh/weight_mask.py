@@ -44,12 +44,15 @@ assert len(cn_ids) == len(cn_labels) * 2,\
 for id in cc_ids:
     m_brain.weights[cn_ids, id] *= -1
 
+tc_ids = cc_ids + cn_ids
 
 # plotting the normal weights, masked weights, and the difference between them
-plot_weights(brain).write_html("normal_weights.html")
-plot_weights(m_brain).write_html("masked_weights.html")
-diff = m_brain.weights - brain.weights
-plot_matrix(diff).write_html("diff.html")
+# plot_weights(brain).write_html("normal_weights.html")
+# plot_weights(m_brain).write_html("masked_weights.html")
+# diff = m_brain.weights - brain.weights
+# plot_matrix(diff).write_html("diff.html")
+sub = m_brain.weights[tc_ids, :]
+plot_matrix(sub, zmin=0.00135, zmax=0.002).write_html("submatrix.html")
 
 
-np.savez("masked_brain.npz", connectivity=m_brain, weights=m_brain.weights, centers=m_brain.centres, tract_lengths=m_brain.tract_lengths, region_labels=m_brain.region_labels, cc_labels=cc_labels, cn_labels=cn_labels)
+np.savez("masked_brain.npz", connectivity=m_brain, weights=m_brain.weights, centers=m_brain.centres, tract_lengths=m_brain.tract_lengths, region_labels=m_brain.region_labels, cc_ids=cc_ids, cn_ids=cn_ids)

@@ -1,29 +1,12 @@
 import numpy as np
 from tvb.simulator.lab import *
-from ataxia.connectivity import load_mousebrain
+from connectivity import load_mousebrain
 from rww_model_mary import *
-from ataxia.plots import plot_weights
+from plots import plot_weights
 
 # Loading mouse brain
-data_dir = os.path.dirname(__file__) + "\\.."
-brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm=False, scale=False)
+brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
 nreg = len(brain.weights)
-
-# Log normalize the weights of the connectome
-w = brain.weights.copy()
-w[np.isnan(w)] = 0.0
-w0 = w <= 0
-w_positive = w > 0
-w /= w[w_positive].min()  # dividiamo i pesi per il minore dei pesi positivi
-w *= np.exp(1)  # per assicurarsi che i pesi siano tutti maggiori di e
-w[w_positive] = np.log(w[w_positive])  # log dei pesi
-w[w0] = 0.0  # gli altri rimangono 0
-brain.weights = w
-
-# Connectivity normalization
-brain.weights[np.isnan(brain.weights)] = 0.0
-brain.weights = brain.scaled_weights(mode="region")
-brain.weights /= np.percentile(brain.weights, 99)
 # plot_weights(brain).write_html("norm_brain_weights.html")
 
 # Time variables
@@ -62,14 +45,22 @@ def simulate(a, J_i):
 
 for ia, a in enumerate(a_range):
     for iJi, Ji in enumerate(Ji_range):
-        print(f"Simulating (a={a},J_i={Ji})")
+        print(f"Simulating (a= {a},J_i= {Ji})")
         (t, _tavg), = simulate(a=a, J_i=Ji)
         data_tavg[ia, iJi] = np.swapaxes(_tavg, 0, 3)
 
 
-np.savez("firing_rate_normal.npz", tavg=tavg, time=t, a=a_range, J_i=Ji_range)
+np.savez("firing_rate_normal.npz", tavg=_tavg, time=t, a=a_range, J_i=Ji_range)
 
 # TODO: plot 3D del variare della media dei rate al variare dei parametri con colori diversi per diverse combinazioni
 #  di parametri sul cluster -> simulazioni a 20 minuti per BOLD letteratura per capire come variare i parametri,
 #  resting state networks literature + firing rates di TVB!!! plot nodi cerebellari sia healthy che masked (pesi
 #  prima log e poi moltiplico per -1)
+
+# TODO: PER DOMANI
+# grafici connettività + nuove equazioni e cosa abbiamo cambiato
+# plot cc e cn e cambiare barra per colori
+# grafici firing rate con colori diversi
+# network Roberta per far vedere cosa modificare del mean field (diminuire # PC o modificare K e Q) -> chiedere
+# RSN trovate + per mouse
+# articolo computational ataxia (usare valori caso sano)
