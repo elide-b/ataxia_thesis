@@ -58,4 +58,4 @@ for ia, a in enumerate(a_range):
                 (t, _tavg), = simulate(a=a, J_i=Ji, w_p=wp, W_i=wi)
                 data_tavg[ia, iJi, iwp, iwi] = np.swapaxes(_tavg, 0, 3)
 
-np.savez("opt_parameters_healthy.npz", tavg=_tavg, time=t, a=a_range, J_i=Ji_range, w_p=wp_range, W_i=wi_range)
+np.savez("opt_parameters_healthy.npz", tavg=data_tavg, time=t, a=a_range, J_i=Ji_range, w_p=wp_range, W_i=wi_range)

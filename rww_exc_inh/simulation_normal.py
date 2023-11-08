@@ -50,7 +50,7 @@ for ia, a in enumerate(a_range):
         data_tavg[ia, iJi] = np.swapaxes(_tavg, 0, 3)
 
 
-np.savez("firing_rate_normal.npz", tavg=_tavg, time=t, a_range=a_range, Ji_range=Ji_range)
+np.savez("firing_rate_normal_test.npz", tavg=data_tavg, time=t, a_range=a_range, Ji_range=Ji_range)
 
 # TODO: plot 3D del variare della media dei rate al variare dei parametri con colori diversi per diverse combinazioni
 #  di parametri sul cluster -> simulazioni a 20 minuti per BOLD letteratura per capire come variare i parametri,
