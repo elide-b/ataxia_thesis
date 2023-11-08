@@ -27,7 +27,7 @@ _cereb_labels = [
 
 
 def _load_mousebrain_zip(subject):
-    datadir = Path(__file__).parent / "../mouse_brains/dataset/conn/"
+    datadir = Path(__file__).parent / "mouse_brains/dataset/conn/"
     try:
         return Connectivity.from_file(str(datadir / subject))
     except FileNotFoundError:
@@ -38,7 +38,7 @@ def _load_mousebrain_zip(subject):
 
 
 def _load_mousebrain_h5(subject):
-    datadir = Path(__file__).parent / "../mouse_brains/dataset/h5/"
+    datadir = Path(__file__).parent / "mouse_brains/dataset/h5/"
     try:
         with h5py.File(str(datadir / subject)) as f:
             centres = np.array(f["centres"][()])
@@ -64,7 +64,7 @@ def load_mousebrain(
     subject: str,
     rem_diag: bool = True,
     scale: typing.Union[Literal[False], Literal["tract"], Literal["region"]] = "region",
-    norm: typing.Union[Literal[False], Literal["max"], Literal["pct"]] = "max",
+    norm: typing.Union[Literal[False], Literal["max"], Literal["pct"], Literal["log"]] = "max",
     dt: float = 0.1,
 ) -> Connectivity:
     """
@@ -86,7 +86,7 @@ def load_mousebrain(
     :param dt: Minimum timestep for propagation of the signal along tracts.
     :param rem_diag: Toggles the "remove diagonal" step.
     :param scale: "tract" scales the output weights, "region" scales the input weights.
-    :param norm: "max" normalizes by the maximum value, "pct" by the 99th percentile.
+    :param norm: "max" normalizes by the maximum value, "pct" by the 99th percentile, "log" with a logarithmic normalization.
     :return: The processed mouse brain
     """
     if subject.endswith(".zip"):
@@ -98,12 +98,22 @@ def load_mousebrain(
     brain.weights[np.isnan(brain.weights)] = 0.0
     if rem_diag:
         np.fill_diagonal(brain.weights, 0)
-    if scale:
-        brain.weights = brain.scaled_weights(scale)
     if norm == "max":
         brain.weights /= np.max(brain.weights)
     elif norm == "pct":
         brain.weights /= np.percentile(brain.weights, 99)
+    elif norm == "log":
+        w = brain.weights.copy()
+        w[np.isnan(w)] = 0.0
+        w0 = w <= 0
+        w_positive = w > 0
+        w /= w[w_positive].min()
+        w *= np.exp(1)
+        w[w_positive] = np.log(w[w_positive])
+        w[w0] = 0.0
+        brain.weights = w
+    if scale:
+        brain.weights = brain.scaled_weights(scale)
     brain.tract_lengths = np.maximum(brain.speed * dt, brain.tract_lengths)
     brain.configure()
     return brain

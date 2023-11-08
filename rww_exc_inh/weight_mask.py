@@ -1,12 +1,11 @@
 import numpy as np
 import os
-from ataxia.connectivity import load_mousebrain
-from ataxia.plots import plot_weights, plot_matrix
+from connectivity import load_mousebrain
+from plots import plot_weights, plot_matrix
 
 # Loading the mouse brain scaled by region and with a logarithmic normalization
-data_dir = os.path.dirname(__file__) + "\\.."
-brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm="log", scale="region")
-m_brain = load_mousebrain(data_dir, "Connectivity_596.h5", norm="log", scale="region")
+brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
+m_brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
 
 # Finding the indexes of the cerebellar cortex and cerebellar nuclei
 cc_labels = [
@@ -52,4 +51,5 @@ plot_weights(m_brain).write_html("masked_weights.html")
 diff = m_brain.weights - brain.weights
 plot_matrix(diff).write_html("diff.html")
 
-np.savez("masked_brain.npz", connectivity=m_brain, weights=m_brain.weights, centers=m_brain.centres, tract_lengths=m_brain.tract_lengths, region_labels=m_brain.region_labels)
+
+np.savez("masked_brain.npz", connectivity=m_brain, weights=m_brain.weights, centers=m_brain.centres, tract_lengths=m_brain.tract_lengths, region_labels=m_brain.region_labels, cc_labels=cc_labels, cn_labels=cn_labels)
