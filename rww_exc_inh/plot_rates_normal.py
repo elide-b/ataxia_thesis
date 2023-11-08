@@ -4,14 +4,15 @@ import matplotlib.pyplot as plt
 with np.load("firing_rate_normal.npz") as rates:
     t = rates['time']
     data = rates['tavg']
-    a_range = rates['a']
-    Ji_range = rates['J_i']
+    a_range = rates['a_range']
+    Ji_range = rates['Ji_range']
 
 # Matrix access in TVB style format
 # S_e = data[:, 0, :, 0]
 # S_i = data[:, 1, :, 0]
 # R_e = data[:, 2, :, 0]
 # R_i = data[:, 3, :, 0]
+
 
 # Matrix access in parameter-sweep format
 for ia, a in enumerate(a_range):
@@ -23,25 +24,25 @@ for ia, a in enumerate(a_range):
         plt.figure()
         for regS_e in S_e:
             plt.plot(t, regS_e, label='S_E')
-        plt.title('Synaptic gating E for a=' + str(a) + ' J_i=' + str(Ji))
-        plt.legend()
+            plt.title('Synaptic gating E for a= ' + str(a) + ' J_i= ' + str(Ji))
+            plt.legend()
 
         plt.figure()
         for regS_i in S_i:
             plt.plot(t, regS_i, label='S_I')
-        plt.title('Synaptic gating I for a='+str(a)+' J_i='+str(Ji))
+        plt.title('Synaptic gating I for a= '+str(a)+' J_i=' +str(Ji))
         plt.legend()
 
         plt.figure()
         for regR_e in R_e:
             plt.plot(t, regR_e, label='r_E')
-        plt.title('Firing rates E for a='+str(a)+' J_i='+str(Ji))
+        plt.title('Firing rates E for a= '+str(a)+' J_i= '+str(Ji))
         plt.legend()
 
         plt.figure()
         for regR_i in R_i:
             plt.plot(t, regR_i, label='r_I')
-        plt.title('Firing rates I for a='+str(a)+' J_i='+str(Ji))
+        plt.title('Firing rates I for a= '+str(a)+' J_i= '+str(Ji))
         plt.legend()
         plt.show()
 
