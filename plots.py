@@ -10,13 +10,13 @@ from plotly.subplots import make_subplots
 pio.templates.default = pio.templates["simple_white"]
 
 
-def _add_matrix_panel(fig, matrix, row=None, col=None, mask_from=None, mask_to=None, zmin=None, zmax=None):
+def _add_matrix_panel(fig, matrix, row=None, col=None, mask_from=None, mask_to=None, zmin=None, zmax=None, labels=None):
     if mask_from is not None:
         sx, sy = get_submask(mask_from, mask_to)
         matrix = apply_submask(matrix, sx, sy)
         text = np.array([f"({x}, {y})" for x, y in zip(sx.flatten(), sy.flatten())]).reshape(matrix.shape)
     else:
-        text = None
+        text = labels
     fig.add_trace(go.Heatmap(z=matrix, zmin=zmin, zmax=zmax, text=text), row=row, col=col)
     fig.update_yaxes(scaleanchor="x", row=row, col=col)
 
@@ -29,9 +29,9 @@ def _add_act_panel(fig, activity, row, col):
     fig.add_trace(go.Heatmap(z=activity), row=row, col=col)
 
 
-def plot_matrix(matrix, show=True, mask_from=None, mask_to=None, zmin=None, zmax=None):
+def plot_matrix(matrix, show=True, mask_from=None, mask_to=None, zmin=None, zmax=None, labels=None):
     fig = go.Figure()
-    _add_matrix_panel(fig, matrix, mask_from=mask_from, mask_to=mask_to, zmin=zmin, zmax=zmax)
+    _add_matrix_panel(fig, matrix, mask_from=mask_from, mask_to=mask_to, zmin=zmin, zmax=zmax, labels=labels)
     if show:
         fig.show()
     return fig
@@ -57,11 +57,14 @@ def _plot_dict_grid(data: dict[str, Any], grid_panel):
     return fig
 
 
-def plot_weights(conn: Union[Connectivity, dict[str, Connectivity]], show=True, mask_from=None, mask_to=None, zmin=None, zmax=None):
+def plot_weights(conn: Union[Connectivity, dict[str, Connectivity]], show=True, mask_from=None, mask_to=None, zmin=None,
+                 zmax=None):
     if isinstance(conn, dict):
         fig = _plot_dict_grid(conn, _add_weights_panel)
     else:
-        fig = plot_matrix(conn.weights, show=False, mask_from=mask_from, mask_to=mask_to, zmin=zmin, zmax=zmax)
+        labels = get_square_labels(conn.region_labels, delim=" ← ")
+        fig = plot_matrix(conn.weights, show=False, mask_from=mask_from, mask_to=mask_to, zmin=zmin, zmax=zmax,
+                          labels=labels)
     if show:
         fig.show()
     return fig
@@ -85,3 +88,27 @@ def get_submask(x, y=None):
 
 def apply_submask(m, x, y):
     return m[x, y].T
+
+
+def get_square_labels(labels, delim=", "):
+    pairs = np.column_stack((
+        np.tile(labels, len(labels)),
+        np.repeat(labels, len(labels)),
+    ))
+    square = np.array([f"({p1}{delim}{p2})" for p1, p2 in pairs])
+    return square.reshape((len(labels), len(labels)))
+
+
+def _add_trace(fig, x, y, z, xaxis='xaxis', yaxis='yaxis', zaxis='zaxis'):
+    fig.add_trace(go.Scatter3d(x=x, y=y, z=z))
+    fig.update_layout(
+        scene=dict(xaxis_title=xaxis, yaxis_title=yaxis, zaxis_title=zaxis))
+
+
+def plot_3d(x, y, z, z2=None, xaxis='xaxis', yaxis='yaxis', zaxis='zaxis', multiple=False):
+    fig = go.Figure()
+    _add_trace(fig, x, y, z, xaxis=xaxis, yaxis=yaxis, zaxis=zaxis)
+    if multiple == True:
+        _add_trace(fig, x, y, z2, xaxis=xaxis, yaxis=yaxis, zaxis=zaxis)
+    fig.show()
+    return fig
