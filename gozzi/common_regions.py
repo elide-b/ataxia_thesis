@@ -1,5 +1,6 @@
 import xlrd
 from openpyxl import load_workbook
+from connectivity import load_mousebrain
 
 # finding the structures present in Oh et al.
 book = xlrd.open_workbook('oh_table1.xls')
@@ -34,3 +35,10 @@ for s in structures_Gozzi:
             common_regions.append(s)
 
 print(f"Common regions between the two: {common_regions} \nFor a total of {len(common_regions)} common regions")
+
+# finding the indexes of the common regions
+brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
+nreg = len(brain.weights)
+
+common_ids = [i for i in range(nreg) if any(b in brain.region_labels[i] for b in common_regions)]
+print(common_ids)
