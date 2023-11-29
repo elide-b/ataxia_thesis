@@ -39,7 +39,7 @@ print('Len Gozzi structures: ',len(structures_Gozzi))
 # compare the two lists
 common_regions = []
 only_OH = []
-#only_Gozzi = []
+only_Gozzi = []
 
 for s in structures_Gozzi:
     for r in structures_Oh:
@@ -51,12 +51,14 @@ print('Len common regions', len(common_regions))
 
 only_OH = list(set(structures_Oh)-set(structures_Gozzi))
 print('Len only OH', len(only_OH))
+only_Gozzi = list(set(structures_Gozzi)-set(structures_Oh))
+print('Len only Gozzi: ', len(only_Gozzi))
         
 
 #print(f"Common regions between the two: {common_regions} \nFor a total of {len(common_regions)} common regions")
 np.savetxt('common_regs.txt',common_regions,fmt='%s')
 np.savetxt('only_oh.txt',only_OH,fmt='%s')
-#np.savetxt('only_gozzi.txt',only_Gozzi,fmt='%s')
+np.savetxt('only_gozzi.txt',only_Gozzi,fmt='%s')
 
 # finding the indexes of the common regions
 brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
