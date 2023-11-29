@@ -1,0 +1,62 @@
+Primary motor area
+Secondary motor area
+Primary somatosensory area, nose
+Primary somatosensory area, barrel field
+Primary somatosensory area, lower limb
+Primary somatosensory area, mouth
+Primary somatosensory area, upper limb
+Primary somatosensory area, trunk
+Primary somatosensory area, unassigned
+Supplemental somatosensory area
+Gustatory areas
+Visceral area
+Dorsal auditory area
+Primary auditory area
+Posterior auditory area
+Ventral auditory area
+Anterolateral visual area
+Anteromedial visual area
+Lateral visual area
+Primary visual area
+Posterolateral visual area
+posteromedial visual area
+Laterointermediate area
+Postrhinal area
+Anterior cingulate area, dorsal part
+Anterior cingulate area, ventral part
+Prelimbic area
+Infralimbic area
+Agranular insular area, dorsal part
+Agranular insular area, posterior part
+Agranular insular area, ventral part
+Retrosplenial area, lateral agranular part
+Retrosplenial area, dorsal part
+Retrosplenial area, ventral part
+Posterior parietal association areas
+Temporal association areas
+Perirhinal area
+Ectorhinal area
+Main olfactory bulb
+Accessory olfactory bulb
+Anterior olfactory nucleus
+Taenia tecta
+Dorsal peduncular area
+Piriform area
+Nucleus of the lateral olfactory tract
+Piriform-amygdalar area
+Dentate gyrus
+Parasubiculum
+Postsubiculum
+Presubiculum
+Subiculum
+Prosubiculum
+Claustrum
+Lateral amygdalar nucleus
+Basolateral amygdalar nucleus
+Basomedial amygdalar nucleus
+Posterior amygdalar nucleus
+Central lobule
+Culmen
+Nodulus (X)
+Simple lobule
+Ansiform lobule
