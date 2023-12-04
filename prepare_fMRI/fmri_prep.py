@@ -1,11 +1,12 @@
 import sys
-sys.path.append('/Users/marialauradegrazia/Desktop/tesi_files_elide_robin/better_tesi-main')
+sys.path.append('/Users/marialauradegrazia/Desktop/tesi_elide_robin/better_tesi')
 
 import numpy as np 
 from scipy.io import loadmat
 import os
 import pandas as pd
 from plots import plot_fc, plot_bold_timeseries
+import matplotlib.pyplot as plt
 
 
 BOLD_DIR = '../dataset fMRI/Data_to_share/BOLD_TS'
@@ -26,7 +27,7 @@ if not os.path.exists(output_folder_ts):
 bold_data = pd.DataFrame(bold_data)
 bold_data.columns = regions_labels_tot
 
-plot_bold_timeseries(bold_ts=bold_data, mouse_id=MOUSE_ID, show=False).write_html(output_folder_ts+'/BOLD_timeseries_'+ MOUSE_ID + '.html')
+#plot_bold_timeseries(bold_ts=bold_data, mouse_id=MOUSE_ID, show=True).write_html(output_folder_ts+'/BOLD_timeseries_'+ MOUSE_ID + '.html')
 
 
 
@@ -35,5 +36,41 @@ if not os.path.exists(output_folder_fc):
     os.makedirs(output_folder_fc)
 
 fc_emp =  np.corrcoef(bold_data, rowvar=False)
-plot_fc(FC_mat=fc_emp,regions_labels=bold_data.columns,mouse_id=MOUSE_ID,show=False).write_html(output_folder_fc+'/fc_'+ MOUSE_ID + '.html')
+#plot_fc(FC_mat=fc_emp,regions_labels=bold_data.columns,mouse_id=MOUSE_ID,show=True).write_html(output_folder_fc+'/fc_'+ MOUSE_ID + '.html')
+
+
+
+# windowed dynamical FC
+
+# define window size 
+tau = 60 # [s] window size
+w_step = 20 # [s] window step
+
+#t_range = np.arange(0,bold_data.shape[0],1)
+FC_windows = []
+triu_FC_windows = []
+
+for t in range(0,bold_data.shape[0],w_step):
+    bold_window = bold_data.iloc[t:t+tau]
+    fc = np.corrcoef(bold_window,rowvar = False)
+    FC_windows.append(fc)
+    triu_FC_windows.append(np.triu(fc))
+
+n_windows = len((triu_FC_windows))
+fcd = np.zeros(shape = (n_windows,n_windows))
+
+
+for i in range(n_windows):
+    for j in range(n_windows):
+        fcd[i][j]=np.corrcoef(triu_FC_windows[i].ravel(),triu_FC_windows[j].ravel())[0,1]
+
+
+plt.imshow(fcd, cmap='viridis', interpolation='nearest')
+plt.colorbar()
+plt.title('Functional Dynamical Connectivity Matrix')
+plt.show()
+
+
+
+
 
