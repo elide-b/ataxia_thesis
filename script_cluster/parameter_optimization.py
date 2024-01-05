@@ -1,8 +1,8 @@
 import numpy as np
 from tvb.simulator.lab import *
-from ataxia.connectivity import load_mousebrain
+from connectivity import load_mousebrain
 from rww_exc_inh.rww_model_mary import *
-from ataxia.plots import plot_weights
+from plots import plot_weights
 
 """Script di sweep delle variabili a, J_i, w_p, e W_i per ottimizzazione nel caso sano"""
 

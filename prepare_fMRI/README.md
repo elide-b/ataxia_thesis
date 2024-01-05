@@ -6,9 +6,10 @@ DATA SPECIFICS:
 
 - 7T MRI scanner (72-mm birdcage transmit
 coil and a 4-channel solenoid coil for signal reception)
-- Repetition time[TR]: 5500 ms
-- Echo time [TE]: 60 ms
+- Repetition time [TR]: 1000 ms
+- Echo time [TE]: 15 ms
 - Matrix: 192 x 192
 - Field of view: 2 x 2 cm
 - Coronal slices: 24
-- Slice thickness: 500 µm 
+- Slice thickness: 500 µm
+- Band‐pass filtering: 0.01–0.1 Hz

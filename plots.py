@@ -58,7 +58,8 @@ def _plot_dict_grid(data: dict[str, Any], grid_panel):
     return fig
 
 
-def plot_weights(conn: Union[Connectivity, dict[str, Connectivity]], show=True, mask_from=None, mask_to=None, zmin=None, zmax=None):
+def plot_weights(conn: Union[Connectivity, dict[str, Connectivity]], show=True, mask_from=None, mask_to=None, zmin=None,
+                 zmax=None):
     if isinstance(conn, dict):
         fig = _plot_dict_grid(conn, _add_weights_panel)
     else:
@@ -87,12 +88,13 @@ def get_submask(x, y=None):
 def apply_submask(m, x, y):
     return m[x, y].T
 
-def plot_fc(FC_mat, regions_labels, mouse_id, show = True):
+
+def plot_fc(FC_mat, regions_labels, mouse_id, show=True):
     fig = go.Figure(data=go.Heatmap(
-    z=FC_mat,
-    x=regions_labels,
-    y=regions_labels,
-    colorscale='Viridis'
+        z=FC_mat,
+        x=regions_labels,
+        y=regions_labels,
+        colorscale='Viridis'
     ))
 
     fig.update_layout(
@@ -101,18 +103,18 @@ def plot_fc(FC_mat, regions_labels, mouse_id, show = True):
         yaxis_title='Regions',
         width=1000, height=1000
     )
-    if show: 
+    if show:
         fig.show()
 
+    return fig
 
-    return fig 
 
 def plot_bold_timeseries(bold_ts, mouse_id, show=True):
     fig = px.line(bold_ts, x=bold_ts.index, y=bold_ts.columns, title='Bold timeseries for ' + mouse_id)
     fig.update_xaxes(title_text='Time [s]')
     fig.update_yaxes(title_text='BOLD')
 
-    if show: 
+    if show:
         fig.show()
 
     return fig
