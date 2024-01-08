@@ -1,6 +1,6 @@
 import numpy as np
 
-from ataxia.plots import plot_activity
+from plots import plot_activity
 
 data = np.load("local_ataxia.npz")
 
