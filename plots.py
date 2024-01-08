@@ -1,6 +1,5 @@
 import math
 from typing import Any, Union
-
 import numpy as np
 import plotly.graph_objs as go
 import plotly.io as pio
@@ -89,7 +88,7 @@ def apply_submask(m, x, y):
     return m[x, y].T
 
 
-def plot_fc(FC_mat, regions_labels, mouse_id, show=True):
+def plot_fc(FC_mat, regions_labels, mouse_id=None, show=True):
     fig = go.Figure(data=go.Heatmap(
         z=FC_mat,
         x=regions_labels,
@@ -97,20 +96,31 @@ def plot_fc(FC_mat, regions_labels, mouse_id, show=True):
         colorscale='Viridis'
     ))
 
-    fig.update_layout(
-        title='FC for ' + mouse_id,
-        xaxis_title='Regions',
-        yaxis_title='Regions',
-        width=1000, height=1000
-    )
+    if mouse_id is not None:
+        fig.update_layout(
+            title='FC for ' + mouse_id,
+            xaxis_title='Regions',
+            yaxis_title='Regions',
+            width=1000, height=1000
+        )
+    else:
+        fig.update_layout(
+            title='experimental FC',
+            xaxis_title='Regions',
+            yaxis_title='Regions',
+            width=1000, height=1000
+        )
     if show:
         fig.show()
 
     return fig
 
 
-def plot_bold_timeseries(bold_ts, mouse_id, show=True):
-    fig = px.line(bold_ts, x=bold_ts.index, y=bold_ts.columns, title='Bold timeseries for ' + mouse_id)
+def plot_bold_timeseries(bold_ts, mouse_id=None, show=True):
+    if mouse_id is not None:
+        fig = px.line(bold_ts, x=bold_ts.index, y=bold_ts.columns, title='Bold timeseries for ' + mouse_id)
+    else:
+        fig = px.line(bold_ts, x=bold_ts.index, y=bold_ts.columns, title='Bold timeseries')
     fig.update_xaxes(title_text='Time [s]')
     fig.update_yaxes(title_text='BOLD')
 
