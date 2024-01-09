@@ -1,7 +1,7 @@
 import numpy as np
 
-from ataxia.connectivity import load_mousebrain
-from ataxia.simulation import simulate
+from connectivity import load_mousebrain
+from simulation import simulate
 
 # Mouse brain
 brain = load_mousebrain("Connectivity_596.h5", norm=False, scale=False)

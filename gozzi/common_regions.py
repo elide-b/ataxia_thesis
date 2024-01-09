@@ -1,5 +1,7 @@
 import sys
+
 sys.path.append('/home/neuro_sim2/tvb/better_tesi')
+
 import xlrd
 from openpyxl import load_workbook
 from connectivity import load_mousebrain
@@ -59,5 +61,3 @@ brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
 nreg = len(brain.weights)
 common_ids = [i for i in range(nreg) if any(b in brain.region_labels[i] for b in common_regions)]
 # print(common_ids)
-
-

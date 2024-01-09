@@ -52,16 +52,8 @@ for ia, a in enumerate(a_range):
 
 np.savez("firing_rate_normal.npz", tavg=data_tavg, time=t, a_range=a_range, Ji_range=Ji_range)
 
-# TODO: plot 3D del variare della media dei rate al variare dei parametri con colori diversi per diverse combinazioni
-#  di parametri sul cluster -> simulazioni a 20 minuti per BOLD letteratura per capire come variare i parametri
-#  articolo computational ataxia (usare valori caso sano)
 
-
-# TODO: a breve termine
-#  plot 3d + subplot cerebellari + labels da OH
-#  prova mask-no mask per vedere differenze con un solo set di parametri migliori e con simlen=1 min (cereb network e poi altrove)
+# TODO:
 #  -> taglia transiente e poi plotta come matrice Re Ri per ogni regione per vedere diff (RSME o differenza o metriche di similarità)
 #  -> anche con istogramma con due barre Re, Ri per ogni regione (mask-no mask)
 
-# TODO: a lungo termine
-#  letteratura atassia, modifiche mean field, tvb-mean field, scrivere <3
