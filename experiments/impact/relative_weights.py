@@ -4,7 +4,7 @@ import itertools
 import numpy as np
 from plotly.subplots import make_subplots
 
-from ataxia.connectivity import get_cereb_region_mask, load_mousebrain
+from connectivity import get_cereb_region_mask, load_mousebrain
 import plotly.graph_objs as go
 
 brain = load_mousebrain("allen84.zip")

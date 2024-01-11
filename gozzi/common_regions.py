@@ -5,7 +5,6 @@ sys.path.append('/home/neuro_sim2/tvb/better_tesi')
 import xlrd
 from openpyxl import load_workbook
 from connectivity import load_mousebrain
-import numpy as np
 
 # finding the structures present in Oh et al.
 book = xlrd.open_workbook('oh_table1.xls')
@@ -52,12 +51,28 @@ print('Len only Gozzi: ', len(only_Gozzi))
 # print(f"Common regions between the two: {common_regions} \nFor a total of {len(common_regions)} common regions")
 
 # saving the regions into files
-np.savetxt('common_regs.txt', common_regions, fmt='%s')
-np.savetxt('only_oh.txt', only_OH, fmt='%s')
-np.savetxt('only_gozzi.txt', only_Gozzi, fmt='%s')
+# np.savetxt('common_regs.txt', common_regions, fmt='%s')
+# np.savetxt('only_oh.txt', only_OH, fmt='%s')
+# np.savetxt('only_gozzi.txt', only_Gozzi, fmt='%s')
 
 # finding the indexes of the common regions
 brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
 nreg = len(brain.weights)
 common_ids = [i for i in range(nreg) if any(b in brain.region_labels[i] for b in common_regions)]
 # print(common_ids)
+
+
+conn_Oh = load_mousebrain("Connectivity_596.h5", norm=False, scale=False)
+structures_conn = conn_Oh.region_labels.copy()
+regions_Oh = []
+not_common = []
+
+for regions in structures_Oh:
+    for structures in structures_conn:
+        if any(regions in structures for reg in conn_Oh.region_labels):
+            regions_Oh.append(structures)
+        else:
+            not_common.append(structures)
+
+print(not_common)
+print(len(not_common))
