@@ -7,7 +7,8 @@ from plots import plot_weights
 # Loading mouse brain
 brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
 nreg = len(brain.weights)
-# plot_weights(brain).write_html("norm_brain_weights.html")
+plot_weights(brain).write_html("norm_brain_weights.html")
+
 
 # Time variables
 dt = 0.1

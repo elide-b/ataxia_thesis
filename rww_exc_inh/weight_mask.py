@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
 m_brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
 
+
 # Finding the indexes of the cerebellar cortex and cerebellar nuclei
 cc_labels = [
     "Lingula (I)",

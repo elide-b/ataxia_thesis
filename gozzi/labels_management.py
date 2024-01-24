@@ -17,6 +17,9 @@ GOZZI_LABELS_FILE = '../dataset fMRI/Data_to_share/macro_atlas_n_172_rois_excel_
 reg_labels_gozzi = list(pd.read_excel(io=GOZZI_LABELS_FILE)['NAME'])
 regions_labels_gozzi = ['Right ' + reg for reg in reg_labels_gozzi] + ['Left ' + reg for reg in reg_labels_gozzi]
 
+print(len(reg_labels_gozzi))
+exit()
+
 OH_LABELS_FILE = '../gozzi/oh_table1.xls'
 SHEET_NAME = 'Voxel Count_295 Structures'
 reg_labels_oh = pd.read_excel(OH_LABELS_FILE, sheet_name=SHEET_NAME)['Name']
@@ -40,11 +43,11 @@ excluded_regs = set1_oh.symmetric_difference(set2_oh)
 
 df_voxel = df_voxel[~df_voxel['Regions'].isin(excluded_regs)]
 print(df_voxel)
+df_voxel.to_csv('df_voxel', index=True)
 
-key_i_k = 'Right Lingula (I)'
+key_i_k = 'Posterior parietal association areas'
 
-# print(df_voxel.loc[df_voxel['Regions'] == key_i_k, 'Voxel Count'].values[0])
-
+print(df_voxel.loc[df_voxel['Regions'] == key_i_k, 'Voxel Count'].values)
 
 ###################CONN_OH HAS THE SAME NUMBER OF LEFT AND RIGHT REGIONS#####################
 count_left = 0
@@ -206,7 +209,6 @@ not_merge_regs = [elem for elem in not_merge_regs]
 
 final_conn_labels = gozzi_merging_labels + not_merge_regs
 
-
 def find_key(map, val):
     for k, list in map.items():
         if val in list:
@@ -255,14 +257,14 @@ with warnings.catch_warnings():
                     key_j_k = 'Left ' + key_j
 
             voxel_count = [df_voxel.loc[df_voxel['Regions'] == key_i_k, 'Voxel Count'].values,
-                       df_voxel.loc[df_voxel['Regions'] == key_j_k, 'Voxel Count'].values]
+                           df_voxel.loc[df_voxel['Regions'] == key_j_k, 'Voxel Count'].values]
 
-            #np.sum delle connessioni per voxel/connessioni
+            # np.sum delle connessioni per voxel/connessioni
             flat_weights = [item for sublist in voxel_count for item in sublist]
             print(flat_weights)
 
             if j in inds_to_merge and i in inds_to_merge:
-                #print('ENTRATO 1')
+                # print('ENTRATO 1')
                 df.at[key_i_k, key_j_k] = np.average(
                     conn_oh.weights[np.ix_(dict_areas_inds[key_i], dict_areas_inds[key_j])], axis=0,
                     weights=flat_weights)
@@ -271,15 +273,15 @@ with warnings.catch_warnings():
                     weights=flat_weights)
 
             if i in inds_to_merge and j not in inds_to_merge:
-                #print('ENTRATO 2')
+                # print('ENTRATO 2')
                 df.at[key_i_k, conn_oh.region_labels[j]] = np.average(conn_oh.weights[dict_areas_inds[key_i], j],
-                                                                      axis=0, weights=wgt)
+                                                                      axis=0, weights=flat_weights)
                 df.at[conn_oh.region_labels[j], key_i_k] = np.average(conn_oh.weights[j, dict_areas_inds[key_i]],
-                                                                      axis=0, weights=wgt)
+                                                                      axis=0, weights=flat_weights)
 
             if j in inds_to_merge and i not in inds_to_merge:
                 # print('ENTRATO 3')
-                print('Key j', key_j) #trova le aree da mergiare -> trovare i voxel corrispondenti
+                print('Key j', key_j)  # trova le aree da mergiare -> trovare i voxel corrispondenti
                 # print('Conn oh: region labels[j]', conn_oh.region_labels[j])
                 print(conn_oh.weights[i, dict_areas_inds[key_j]].shape)
                 df.at[conn_oh.region_labels[i], key_j_k] = np.average(conn_oh.weights[i, dict_areas_inds[key_j]],
