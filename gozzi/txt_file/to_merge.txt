@@ -1,0 +1,326 @@
+Left Field CA1
+Left Field CA2
+Left Field CA3
+Right Field CA1
+Right Field CA2
+Right Field CA3
+Left Lateral hypothalamic area
+Left Lateral preoptic area
+Left Subthalamic nucleus
+Left Preparasubthalamic nucleus
+Left Zona Incerta
+Left Parasubthalamic nucleus
+Left Tuberal nucleus
+Left Perifornical nucleus
+Left Retrochiasmatic area
+Right Lateral hypothalamic area
+Right Lateral preoptic area
+Right Subthalamic nucleus
+Right Preparasubthalamic nucleus
+Right Zona Incerta
+Right Parasubthalamic nucleus
+Right Tuberal nucleus
+Right Perifornical nucleus
+Right Retrochiasmatic area
+Left Medial septal nucleus
+Left Diagonal band nucleus
+Left Triangular nucleus of septum
+Right Medial septal nucleus
+Right Diagonal band nucleus
+Right Triangular nucleus of septum
+Left Entorhinal area, lateral part
+Left Entorhinal area, medial part, dorsal zone 
+Left Entorhinal area, medial part, ventral zone
+Right Entorhinal area, lateral part
+Right Entorhinal area, medial part, dorsal zone 
+Right Entorhinal area, medial part, ventral zone
+Left Bed nucleus of the anterior commissure
+Left Bed nuclei of the stria terminalis
+Right Bed nucleus of the anterior commissure
+Right Bed nuclei of the stria terminalis
+Left Nucleus accumbens
+Left Fundus of striatum
+Left Olfactory tubercle
+Right Nucleus accumbens
+Right Fundus of striatum
+Right Olfactory tubercle
+Left Substantia nigra, compact part
+Left Pedunculopontine nucleus
+Left Interfascicular nucleus raphe
+Left Interpeduncular nucleus
+Left Rostral linear nucleus raphe
+Left Central linear nucleus raphe
+Left Dorsal nucleus raphe
+Right Substantia nigra, compact part
+Right Pedunculopontine nucleus
+Right Interfascicular nucleus raphe
+Right Interpeduncular nucleus
+Right Rostral linear nucleus raphe
+Right Central linear nucleus raphe
+Right Dorsal nucleus raphe
+Left Endopiriform nucleus, dorsal part
+Left Endopiriform nucleus, ventral part
+Right Endopiriform nucleus, dorsal part
+Right Endopiriform nucleus, ventral part
+Left Substantia nigra, reticular part
+Left Ventral tegmental area
+Left Paranigral nucleus
+Left Midbrain reticular nucleus, retrorubral area
+Left Midbrain reticular nucleus
+Left Superior colliculus, motor related
+Left Periaqueductal gray
+Left Cuneiform nucleus
+Left Oculomotor nucleus
+Left Red nucleus
+Left Medial accesory oculomotor nucleus
+Left Edinger-Westphal nucleus
+Left Trochlear nucleus
+Left Paratrochlear nucleus
+Left Ventral tegmental nucleus
+Left Anterior tegmental nucleus
+Left Lateral terminal nucleus of the accessory optic tract
+Left Dorsal terminal nucleus of the accessory optic tract
+Left Ventral terminal nucleus of the accessory optic tract
+Right Substantia nigra, reticular part
+Right Ventral tegmental area
+Right Paranigral nucleus
+Right Midbrain reticular nucleus, retrorubral area
+Right Midbrain reticular nucleus
+Right Superior colliculus, motor related
+Right Periaqueductal gray
+Right Cuneiform nucleus
+Right Oculomotor nucleus
+Right Red nucleus
+Right Medial accesory oculomotor nucleus
+Right Edinger-Westphal nucleus
+Right Trochlear nucleus
+Right Paratrochlear nucleus
+Right Ventral tegmental nucleus
+Right Anterior tegmental nucleus
+Right Lateral terminal nucleus of the accessory optic tract
+Right Dorsal terminal nucleus of the accessory optic tract
+Right Ventral terminal nucleus of the accessory optic tract
+Left Supraoptic nucleus
+Left Accessory supraoptic group
+Left Paraventricular hypothalamic nucleus
+Left Periventricular hypothalamic nucleus, anterior part
+Left Periventricular hypothalamic nucleus, intermediate part
+Left Arcuate hypothalamic nucleus
+Right Supraoptic nucleus
+Right Accessory supraoptic group
+Right Paraventricular hypothalamic nucleus
+Right Periventricular hypothalamic nucleus, anterior part
+Right Periventricular hypothalamic nucleus, intermediate part
+Right Arcuate hypothalamic nucleus
+Left Globus pallidus, external segment
+Left Globus pallidus, internal segment
+Right Globus pallidus, external segment
+Right Globus pallidus, internal segment
+Left Cortical amygdalar area, anterior part
+Left Cortical amygdalar area, posterior part
+Right Cortical amygdalar area, anterior part
+Right Cortical amygdalar area, posterior part
+Left Anterodorsal preoptic nucleus
+Left Anterior hypothalamic area
+Left Anteroventral preoptic nucleus
+Left Anteroventral periventricular nucleus
+Left Dorsomedial nucleus of the hypothalamus
+Left Median preoptic nucleus
+Left Medial preoptic area
+Left Vascular organ of the lamina terminalis
+Left Posterodorsal preoptic nucleus
+Left Parastrial nucleus
+Left Suprachiasmatic nucleus
+Left Periventricular hypothalamic nucleus, posterior part
+Left Periventricular hypothalamic nucleus, preoptic part
+Left Subparaventricular zone
+Left Subfornical organ
+Left Ventromedial preoptic nucleus
+Left Ventrolateral preoptic nucleus
+Right Anterodorsal preoptic nucleus
+Right Anterior hypothalamic area
+Right Anteroventral preoptic nucleus
+Right Anteroventral periventricular nucleus
+Right Dorsomedial nucleus of the hypothalamus
+Right Median preoptic nucleus
+Right Medial preoptic area
+Right Vascular organ of the lamina terminalis
+Right Posterodorsal preoptic nucleus
+Right Parastrial nucleus
+Right Suprachiasmatic nucleus
+Right Periventricular hypothalamic nucleus, posterior part
+Right Periventricular hypothalamic nucleus, preoptic part
+Right Subparaventricular zone
+Right Subfornical organ
+Right Ventromedial preoptic nucleus
+Right Ventrolateral preoptic nucleus
+Left Orbital area, lateral part
+Left Orbital area, medial part
+Left Orbital area, ventrolateral part
+Right Orbital area, lateral part
+Right Orbital area, medial part
+Right Orbital area, ventrolateral part
+Left Reticular nucleus of the thalamus
+Left Intergeniculate leaflet of the lateral geniculate complex
+Left Intermediate geniculate nucleus
+Left Ventral part of the lateral geniculate complex
+Left Subgeniculate nucleus
+Left Rhomboid nucleus
+Left Central medial nucleus of the thalamus
+Left Paracentral nucleus
+Left Central lateral nucleus of the thalamus
+Left Parafascicular nucleus
+Left Posterior intralaminar thalamic nucleus
+Left Paraventricular nucleus of the thalamus
+Left Parataenial nucleus
+Left Nucleus of reuniens
+Left Xiphoid thalamic nucleus
+Left Intermediodorsal nucleus of the thalamus
+Left Mediodorsal nucleus of thalamus
+Left Submedial nucleus of the thalamus
+Left Perireunensis nucleus
+Left Anteroventral nucleus of thalamus
+Left Anteromedial nucleus, dorsal part
+Left Anteromedial nucleus, ventral part
+Left Anterodorsal nucleus
+Left Interanteromedial nucleus of the thalamus
+Left Interanterodorsal nucleus of the thalamus
+Left Lateral dorsal nucleus of thalamus
+Left Lateral posterior nucleus of the thalamus
+Left Posterior complex of the thalamus
+Left Posterior limiting nucleus of the thalamus
+Left Suprageniculate nucleus
+Left Medial habenula
+Left Lateral habenula
+Right Reticular nucleus of the thalamus
+Right Intergeniculate leaflet of the lateral geniculate complex
+Right Intermediate geniculate nucleus
+Right Ventral part of the lateral geniculate complex
+Right Subgeniculate nucleus
+Right Rhomboid nucleus
+Right Central medial nucleus of the thalamus
+Right Paracentral nucleus
+Right Central lateral nucleus of the thalamus
+Right Parafascicular nucleus
+Right Posterior intralaminar thalamic nucleus
+Right Paraventricular nucleus of the thalamus
+Right Parataenial nucleus
+Right Nucleus of reuniens
+Right Xiphoid thalamic nucleus
+Right Intermediodorsal nucleus of the thalamus
+Right Mediodorsal nucleus of thalamus
+Right Submedial nucleus of the thalamus
+Right Perireunensis nucleus
+Right Anteroventral nucleus of thalamus
+Right Anteromedial nucleus, dorsal part
+Right Anteromedial nucleus, ventral part
+Right Anterodorsal nucleus
+Right Interanteromedial nucleus of the thalamus
+Right Interanterodorsal nucleus of the thalamus
+Right Lateral dorsal nucleus of thalamus
+Right Lateral posterior nucleus of the thalamus
+Right Posterior complex of the thalamus
+Right Posterior limiting nucleus of the thalamus
+Right Suprageniculate nucleus
+Right Medial habenula
+Right Lateral habenula
+Left Ventral anterior-lateral complex of the thalamus
+Left Ventral medial nucleus of the thalamus
+Left Ventral posterolateral nucleus of the thalamus
+Left Ventral posterolateral nucleus of the thalamus, parvicellular part
+Left Ventral posteromedial nucleus of the thalamus
+Left Ventral posteromedial nucleus of the thalamus, parvicellular part
+Left Posterior triangular thalamic nucleus
+Left Subparafascicular nucleus, magnocellular part
+Left Subparafascicular nucleus, parvicellular part
+Left Subparafascicular area
+Left Peripeduncular nucleus
+Left Medial geniculate complex, dorsal part
+Left Medial geniculate complex, ventral part
+Left Medial geniculate complex, medial part
+Left Dorsal part of the lateral geniculate complex
+Right Ventral anterior-lateral complex of the thalamus
+Right Ventral medial nucleus of the thalamus
+Right Ventral posterolateral nucleus of the thalamus
+Right Ventral posterolateral nucleus of the thalamus, parvicellular part
+Right Ventral posteromedial nucleus of the thalamus
+Right Ventral posteromedial nucleus of the thalamus, parvicellular part
+Right Posterior triangular thalamic nucleus
+Right Subparafascicular nucleus, magnocellular part
+Right Subparafascicular nucleus, parvicellular part
+Right Subparafascicular area
+Right Peripeduncular nucleus
+Right Medial geniculate complex, dorsal part
+Right Medial geniculate complex, ventral part
+Right Medial geniculate complex, medial part
+Right Dorsal part of the lateral geniculate complex
+Left Lateral septal nucleus, caudal (caudodorsal) part
+Left Lateral septal nucleus
+Left rostral (rostroventral) part
+Left Lateral septal nucleus, ventral part
+Left Septofimbrial nucleus
+Left Septohippocampal nucleus
+Right Lateral septal nucleus, caudal (caudodorsal) part
+Right Lateral septal nucleus
+Right rostral (rostroventral) part
+Right Lateral septal nucleus, ventral part
+Right Septofimbrial nucleus
+Right Septohippocampal nucleus
+Left Anterior hypothalamic nucleus
+Left Supramammillary nucleus
+Left Medial mammillary nucleus
+Left Lateral mammillary nucleus
+Left Tuberomammillary nucleus, dorsal part
+Left Tuberomammillary nucleus, ventral part
+Left Medial preoptic nucleus
+Left Dorsal premammillary nucleus
+Left Ventral premammillary nucleus
+Left Paraventricular hypothalamic nucleus, descending division
+Left Ventromedial hypothalamic nucleus
+Left Posterior hypothalamic nucleus
+Right Anterior hypothalamic nucleus
+Right Supramammillary nucleus
+Right Medial mammillary nucleus
+Right Lateral mammillary nucleus
+Right Tuberomammillary nucleus, dorsal part
+Right Tuberomammillary nucleus, ventral part
+Right Medial preoptic nucleus
+Right Dorsal premammillary nucleus
+Right Ventral premammillary nucleus
+Right Paraventricular hypothalamic nucleus, descending division
+Right Ventromedial hypothalamic nucleus
+Right Posterior hypothalamic nucleus
+Left Inferior colliculus, central nucleus
+Left Inferior colliculus, dorsal nucleus
+Left Inferior colliculus, external nucleus
+Left Superior colliculus, sensory related
+Left Nucleus of the brachium of the inferior colliculus
+Left Nucleus sagulum
+Left Parabigeminal nucleus
+Left Midbrain trigeminal nucleus
+Left Subcommissural organ
+Right Inferior colliculus, central nucleus
+Right Inferior colliculus, dorsal nucleus
+Right Inferior colliculus, external nucleus
+Right Superior colliculus, sensory related
+Right Nucleus of the brachium of the inferior colliculus
+Right Nucleus sagulum
+Right Parabigeminal nucleus
+Right Midbrain trigeminal nucleus
+Right Subcommissural organ
+Left Central amygdalar nucleus
+Left Anterior amygdalar area
+Left Bed nucleus of the accessory olfactory tract
+Left Intercalated amygdalar nucleus
+Left Medial amygdalar nucleus
+Right Central amygdalar nucleus
+Right Anterior amygdalar area
+Right Bed nucleus of the accessory olfactory tract
+Right Intercalated amygdalar nucleus
+Right Medial amygdalar nucleus
+Left Caudoputamen
+Right Caudoputamen
+Left Substantia innominata
+Left Magnocellular nucleus
+Right Substantia innominata
+Right Magnocellular nucleus

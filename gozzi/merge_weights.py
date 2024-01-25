@@ -1,26 +1,32 @@
 import sys
 
-sys.path.append('/home/neuro_sim2/tvb/better_tesi')
+# sys.path.append('/Users/marialauradegrazia/Desktop/my_TVB/TVMB_ongoing')
 
 import os
 from collections import OrderedDict
 import time
 import numpy as np
 from connectivity import load_mousebrain
+from plots import plot_weights, plot_matrix
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from copy import deepcopy
 
-# conn_oh_path='/home/neuro_sim2/tvb/better_tesi/mouse_brains/dataset/h5'
-conn_oh = load_mousebrain("Connectivity_596.h5", norm=False, scale=False)
+conn_oh = load_mousebrain("Connectivity_02531729cb0d470d9a62dcff9158a952.h5", norm=False, scale=False)
 
-# manca Hippocampo-amygdalar transition area
+GOZZI_LABELS_FILE = '../dataset fMRI/Data_to_share/macro_atlas_n_172_rois_excel_final.xlsx'
+reg_labels_gozzi = list(pd.read_excel(io=GOZZI_LABELS_FILE)['NAME'])
+reg_labels_gozzi.append('Caudoputamen')
+regions_labels_gozzi = ['Right ' + reg for reg in reg_labels_gozzi] + ['Left ' + reg for reg in reg_labels_gozzi]
+
 dict_areas = {
     "Ammon's horn": ['Field CA1', 'Field CA2', 'Field CA3'],
-    "Lateral hypothalamic zone": ['Lateral hypothalamic area', 'Lateral preoptic area', 'Subthalamic nucleus',
-                                  'Preparasubthalamic nucleus',
-                                  'Zona Incerta', 'Parasubthalamic nucleus', 'Tuberal nucleus', 'Perifornical nucleus',
-                                  'Retrochiasmatic area'],
-    "Pallidum, median region": ['Medial septal nucleus', 'Diagonal band nucleus', 'Triangular nucleus of septum'],
-    "Entorhinal area": ['Entorhinal area, lateral part', 'Entorhinal area, medial part, dorsal zone ',
-                        'Entorhinal area, medial part, ventral zone'],
+    "Entorhinal area": ['Entorhinal area, lateral part', 'Entorhinal area, medial part, dorsal zone'],
+    "Hypothalamic lateral zone": ['Lateral hypothalamic area', 'Lateral preoptic area', 'Subthalamic nucleus',
+                                  'Preparasubthalamic nucleus', 'Zona incerta', 'Parasubthalamic nucleus',
+                                  'Tuberal nucleus', 'Perifornical nucleus', 'Retrochiasmatic area'],
+    "Pallidum, medial region": ['Medial septal nucleus', 'Diagonal band nucleus', 'Triangular nucleus of septum'],
     "Pallidum, caudal region": ['Bed nucleus of the anterior commissure', 'Bed nuclei of the stria terminalis'],
     "Striatum ventral region": ['Nucleus accumbens', 'Fundus of striatum', 'Olfactory tubercle'],
     "Midbrain, behavioral state related": ['Substantia nigra, compact part', 'Pedunculopontine nucleus',
@@ -35,27 +41,28 @@ dict_areas = {
                                 'Edinger-Westphal nucleus', 'Trochlear nucleus', 'Paratrochlear nucleus',
                                 'Ventral tegmental nucleus', 'Anterior tegmental nucleus',
                                 'Lateral terminal nucleus of the accessory optic tract',
-                                'Dorsal terminal nucleus of the accessory optic tract',
-                                'Ventral terminal nucleus of the accessory optic tract'],
-    "Periventricular zone": ['Supraoptic nucleus', 'Accessory supraoptic group', 'Paraventricular hypothalamic nucleus',
+                                'Dorsal terminal nucleus of the accessory optic tract'],
+    "Periventricular zone": ['Accessory supraoptic group', 'Paraventricular hypothalamic nucleus',
+                             # supraoptic nucleus non è in conn_oh
                              'Periventricular hypothalamic nucleus, anterior part',
                              'Periventricular hypothalamic nucleus, intermediate part', 'Arcuate hypothalamic nucleus'],
     "Pallidum, dorsal region": ['Globus pallidus, external segment', 'Globus pallidus, internal segment'],
     "Cortical amygdalar area": ['Cortical amygdalar area, anterior part', 'Cortical amygdalar area, posterior part'],
-    "Periventricular region": ['Anterodorsal preoptic nucleus', 'Anterior hypothalamic area',
-                               'Anteroventral preoptic nucleus', 'Anteroventral periventricular nucleus',
-                               'Dorsomedial nucleus of the hypothalamus', 'Median preoptic nucleus',
-                               'Medial preoptic area', 'Vascular organ of the lamina terminalis',
-                               'Posterodorsal preoptic nucleus', 'Parastrial nucleus', 'Suprachiasmatic nucleus',
+    "Periventricular region": ['Anterodorsal preoptic nucleus', 'Anteroventral preoptic nucleus',
+                               'Anteroventral periventricular nucleus', 'Dorsomedial nucleus of the hypothalamus',
+                               'Median preoptic nucleus', 'Medial preoptic area',
+                               'Vascular organ of the lamina terminalis', 'Posterodorsal preoptic nucleus',
+                               'Parastrial nucleus', 'Suprachiasmatic nucleus',
                                'Periventricular hypothalamic nucleus, posterior part',
                                'Periventricular hypothalamic nucleus, preoptic part', 'Subparaventricular zone',
-                               'Subfornical organ', 'Ventromedial preoptic nucleus', 'Ventrolateral preoptic nucleus'],
+                               # subfornical organ is not in conn_oh
+                               'Ventromedial preoptic nucleus', 'Ventrolateral preoptic nucleus'],
     "Orbital area": ['Orbital area, lateral part', 'Orbital area, medial part', 'Orbital area, ventrolateral part'],
     "Thalamus, polymodal association cortex related": ['Reticular nucleus of the thalamus',
                                                        'Intergeniculate leaflet of the lateral geniculate complex',
                                                        'Intermediate geniculate nucleus',
                                                        'Ventral part of the lateral geniculate complex',
-                                                       'Subgeniculate nucleus', 'Rhomboid nucleus',
+                                                       'Rhomboid nucleus',  # subgeniculate nucleus non è in conn_oh
                                                        'Central medial nucleus of the thalamus', 'Paracentral nucleus',
                                                        'Central lateral nucleus of the thalamus',
                                                        'Parafascicular nucleus',
@@ -65,9 +72,9 @@ dict_areas = {
                                                        'Intermediodorsal nucleus of the thalamus',
                                                        'Mediodorsal nucleus of thalamus',
                                                        'Submedial nucleus of the thalamus', 'Perireunensis nucleus',
-                                                       'Anteroventral nucleus of thalamus',
-                                                       'Anteromedial nucleus, dorsal part',
-                                                       'Anteromedial nucleus, ventral part', 'Anterodorsal nucleus',
+                                                       'Anteroventral nucleus of thalamus', 'Anteromedial nucleus',
+                                                       # non diviso in ventral e dorsal
+                                                       'Anterodorsal nucleus',
                                                        'Interanteromedial nucleus of the thalamus',
                                                        'Interanterodorsal nucleus of the thalamus',
                                                        'Lateral dorsal nucleus of thalamus',
@@ -86,13 +93,13 @@ dict_areas = {
                                                'Subparafascicular nucleus, magnocellular part',
                                                'Subparafascicular nucleus, parvicellular part',
                                                'Subparafascicular area', 'Peripeduncular nucleus',
-                                               'Medial geniculate complex, dorsal part',
-                                               'Medial geniculate complex, ventral part',
-                                               'Medial geniculate complex, medial part',
+                                               'Medial geniculate complex',
+                                               # non diviso in dorsal, medial e ventral in conn_oh
                                                'Dorsal part of the lateral geniculate complex'],
-    "Lateral septal complex": ['Lateral septal nucleus, caudal (caudodorsal) part', 'Lateral septal nucleus',
-                               'rostral (rostroventral) part', 'Lateral septal nucleus, ventral part',
-                               'Septofimbrial nucleus', 'Septohippocampal nucleus'],
+    "Lateral septal complex": ['Lateral septal nucleus, caudal (caudodorsal) part',
+                               'Lateral septal nucleus, rostral (rostroventral) part',
+                               'Lateral septal nucleus, ventral part', 'Septofimbrial nucleus'],
+    # anche septohippocampal nucleus non è in conn_oh.region_labels
     "Hypothalamic medial zone": ['Anterior hypothalamic nucleus', 'Supramammillary nucleus',
                                  'Medial mammillary nucleus', 'Lateral mammillary nucleus',
                                  'Tuberomammillary nucleus, dorsal part', 'Tuberomammillary nucleus, ventral part',
@@ -100,27 +107,104 @@ dict_areas = {
                                  'Ventral premammillary nucleus',
                                  'Paraventricular hypothalamic nucleus, descending division',
                                  'Ventromedial hypothalamic nucleus', 'Posterior hypothalamic nucleus'],
-    "Midbrain, sensory related": ['Inferior colliculus, central nucleus', 'Inferior colliculus, dorsal nucleus',
-                                  'Inferior colliculus, external nucleus', 'Superior colliculus, sensory related',
+    "Midbrain, sensory related": ['Inferior colliculus', 'Superior colliculus, sensory related',
+                                  # inferior colliculus non è diviso in conn_oh
                                   'Nucleus of the brachium of the inferior colliculus', 'Nucleus sagulum',
                                   'Parabigeminal nucleus', 'Midbrain trigeminal nucleus', 'Subcommissural organ'],
     "Striatum-like amygdalar nuclei": ['Central amygdalar nucleus', 'Anterior amygdalar area',
                                        'Bed nucleus of the accessory olfactory tract', 'Intercalated amygdalar nucleus',
                                        'Medial amygdalar nucleus'],
-    "Striatum dorsal region": ['Caudoputamen'],
-    "Pallidum, ventral region": ['Substantia innominata', 'Magnocellular nucleus']
+    "Pallidum, ventral region": ['Substantia innominata', 'Magnocellular nucleus'],
+    "Posterior parietal association areas": ['Rostrolateral visual area', 'Anterior area']
 
 }
 
-dict_areas_inds_l = {}
-dict_areas_inds_r = {}
+final_dict_areas = {}
+for key, list in dict_areas.items():
+    new_list_left = [f'Left {reg}' for reg in list]
+    new_list_right = [f'Right {reg}' for reg in list]
+    key_right = 'Right ' + key
+    key_left = 'Left ' + key
+    final_dict_areas[key_right] = new_list_right
+    final_dict_areas[key_left] = new_list_left
 
-for reg_gozzi, regions in dict_areas.items():
-    regs_l = ['Left ' + r for r in regions]
-    regs_r = ['Right ' + r for r in regions]
-    dict_areas_inds_l[reg_gozzi] = [i for i, labels in enumerate(conn_oh.region_labels) if labels in regs_l]
-    dict_areas_inds_r[reg_gozzi] = [i for i, labels in enumerate(conn_oh.region_labels) if labels in regs_r]
+conn = conn_oh.weights
+labels = conn_oh.region_labels
 
-print(f'Left inds to be merged: {dict_areas_inds_l}')
-# print(f'Right inds to be merged: {dict_areas_inds_r}')
+for key, list in final_dict_areas.items():
+    regs_to_merge = [reg for reg in list]
+    inds_to_merge = [np.where(labels == reg)[0] for reg in list]
+    inds_to_merge_oh = [np.where(conn_oh.region_labels == reg)[0] for reg in list]
 
+    # merge the labels
+    labels = np.delete(labels, inds_to_merge, axis=0)
+    labels = np.insert(labels, np.min(inds_to_merge), key, axis=0)
+
+    # delete the axes
+    conn = np.delete(conn, inds_to_merge, axis=0)
+    # build new axis of merged regions
+    new0 = np.squeeze(conn_oh.weights[inds_to_merge_oh, :])
+    new_0 = np.nansum(new0, axis=0)
+
+    # insert the axis
+    conn = np.insert(conn, np.min(inds_to_merge), new_0, axis=0)
+
+print(conn.shape)
+
+new_conn = deepcopy(conn)
+# new_labels = labels
+labels = conn_oh.region_labels
+for key, list in final_dict_areas.items():
+    regs_to_merge = [reg for reg in list]
+    inds_to_merge = [np.where(labels == reg)[0] for reg in list]
+    inds_to_merge_oh = [np.where(conn_oh.region_labels == reg)[0] for reg in list]
+
+    # merge the labels
+    labels = np.delete(labels, inds_to_merge, axis=0)
+    labels = np.insert(labels, np.min(inds_to_merge), key, axis=0)
+
+    # delete the axes
+    conn = np.delete(conn, inds_to_merge, axis=1)
+
+    # build new axis of merged regions
+    new1 = np.squeeze(new_conn[:, inds_to_merge_oh])
+    new_1 = np.nansum(new1, axis=1)
+
+    # insert the axis
+    conn = np.insert(conn, np.min(inds_to_merge), new_1, axis=1)
+
+print(conn.shape)
+print(labels.shape)
+
+np.fill_diagonal(conn, 0.)
+# np.savetxt('weights_merged_oh.txt', conn)
+
+conn_norm = conn / np.max(conn)
+reg_gozzi = [reg for i, reg in enumerate(labels) if reg in regions_labels_gozzi]
+
+# Plot the merged connectivity on Oh
+plt.title('Connectivity Oh merged')
+plt.imshow(conn_norm, cmap='viridis')
+# plt.xticks(np.arange(len(reg_gozzi)), reg_gozzi)
+# plt.yticks(np.arange(len(reg_gozzi)), reg_gozzi)
+plt.colorbar()
+plt.tight_layout()
+plt.savefig('conn_merged.png', dpi=600)
+plt.show()
+
+# only gozzi regions
+print('For Gozzi')
+inds_gozzi = [i for i, reg in enumerate(labels) if reg in regions_labels_gozzi]
+conn_gozzi = conn[np.ix_(inds_gozzi, inds_gozzi)]
+
+# np.savetxt('weights_gozzi.txt', conn_gozzi)
+
+conn_gozzi_norm = conn_gozzi/np.max(conn_gozzi)
+plt.title('Connectivity Gozzi regions')
+plt.imshow(conn_gozzi_norm, cmap='viridis')
+# plt.xticks(np.arange(len(reg_gozzi)), reg_gozzi)
+# plt.yticks(np.arange(len(reg_gozzi)), reg_gozzi)
+plt.colorbar()
+plt.tight_layout()
+plt.savefig('conn_gozzi.png', dpi = 600)
+plt.show()

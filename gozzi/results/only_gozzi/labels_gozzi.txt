@@ -1,0 +1,170 @@
+Right Primary motor area
+Right Secondary motor area
+Right Primary somatosensory area, nose
+Right Primary somatosensory area, barrel field
+Right Primary somatosensory area, lower limb
+Right Primary somatosensory area, mouth
+Right Primary somatosensory area, upper limb
+Right Primary somatosensory area, trunk
+Right Primary somatosensory area, unassigned
+Right Supplemental somatosensory area
+Right Gustatory areas
+Right Visceral area
+Right Dorsal auditory area
+Right Primary auditory area
+Right Posterior auditory area
+Right Ventral auditory area
+Right Anterolateral visual area
+Right Anteromedial visual area
+Right Lateral visual area
+Right Primary visual area
+Right Posterolateral visual area
+Right posteromedial visual area
+Right Laterointermediate area
+Right Postrhinal area
+Right Anterior cingulate area, dorsal part
+Right Anterior cingulate area, ventral part
+Right Prelimbic area
+Right Infralimbic area
+Right Orbital area
+Right Agranular insular area, dorsal part
+Right Agranular insular area, posterior part
+Right Agranular insular area, ventral part
+Right Retrosplenial area, lateral agranular part
+Right Retrosplenial area, dorsal part
+Right Retrosplenial area, ventral part
+Right Posterior parietal association areas
+Right Temporal association areas
+Right Perirhinal area
+Right Ectorhinal area
+Right Main olfactory bulb
+Right Accessory olfactory bulb
+Right Anterior olfactory nucleus
+Right Taenia tecta
+Right Dorsal peduncular area
+Right Piriform area
+Right Nucleus of the lateral olfactory tract
+Right Cortical amygdalar area
+Right Piriform-amygdalar area
+Right Ammon's horn
+Right Dentate gyrus
+Right Entorhinal area
+Right Parasubiculum
+Right Postsubiculum
+Right Presubiculum
+Right Subiculum
+Right Prosubiculum
+Right Claustrum
+Right Endopiriform nucleus
+Right Lateral amygdalar nucleus
+Right Basolateral amygdalar nucleus
+Right Basomedial amygdalar nucleus
+Right Posterior amygdalar nucleus
+Right Caudoputamen
+Right Striatum ventral region
+Right Lateral septal complex
+Right Striatum-like amygdalar nuclei
+Right Pallidum, dorsal region
+Right Pallidum, ventral region
+Right Pallidum, medial region
+Right Pallidum, caudal region
+Right Thalamus, sensory-motor cortex related
+Right Thalamus, polymodal association cortex related
+Right Periventricular zone
+Right Periventricular region
+Right Hypothalamic medial zone
+Right Hypothalamic lateral zone
+Right Midbrain, sensory related
+Right Midbrain, motor related
+Right Midbrain, behavioral state related
+Right Central lobule
+Right Culmen
+Right Nodulus (X)
+Right Simple lobule
+Right Ansiform lobule
+Right Paraflocculus
+Left Primary motor area
+Left Secondary motor area
+Left Primary somatosensory area, nose
+Left Primary somatosensory area, barrel field
+Left Primary somatosensory area, lower limb
+Left Primary somatosensory area, mouth
+Left Primary somatosensory area, upper limb
+Left Primary somatosensory area, trunk
+Left Primary somatosensory area, unassigned
+Left Supplemental somatosensory area
+Left Gustatory areas
+Left Visceral area
+Left Dorsal auditory area
+Left Primary auditory area
+Left Posterior auditory area
+Left Ventral auditory area
+Left Anterolateral visual area
+Left Anteromedial visual area
+Left Lateral visual area
+Left Primary visual area
+Left Posterolateral visual area
+Left posteromedial visual area
+Left Laterointermediate area
+Left Postrhinal area
+Left Anterior cingulate area, dorsal part
+Left Anterior cingulate area, ventral part
+Left Prelimbic area
+Left Infralimbic area
+Left Orbital area
+Left Agranular insular area, dorsal part
+Left Agranular insular area, posterior part
+Left Agranular insular area, ventral part
+Left Retrosplenial area, lateral agranular part
+Left Retrosplenial area, dorsal part
+Left Retrosplenial area, ventral part
+Left Posterior parietal association areas
+Left Temporal association areas
+Left Perirhinal area
+Left Ectorhinal area
+Left Main olfactory bulb
+Left Accessory olfactory bulb
+Left Anterior olfactory nucleus
+Left Taenia tecta
+Left Dorsal peduncular area
+Left Piriform area
+Left Nucleus of the lateral olfactory tract
+Left Cortical amygdalar area
+Left Piriform-amygdalar area
+Left Ammon's horn
+Left Dentate gyrus
+Left Entorhinal area
+Left Parasubiculum
+Left Postsubiculum
+Left Presubiculum
+Left Subiculum
+Left Prosubiculum
+Left Claustrum
+Left Endopiriform nucleus
+Left Lateral amygdalar nucleus
+Left Basolateral amygdalar nucleus
+Left Basomedial amygdalar nucleus
+Left Posterior amygdalar nucleus
+Left Caudoputamen
+Left Striatum ventral region
+Left Lateral septal complex
+Left Striatum-like amygdalar nuclei
+Left Pallidum, dorsal region
+Left Pallidum, ventral region
+Left Pallidum, medial region
+Left Pallidum, caudal region
+Left Thalamus, sensory-motor cortex related
+Left Thalamus, polymodal association cortex related
+Left Periventricular zone
+Left Periventricular region
+Left Hypothalamic medial zone
+Left Hypothalamic lateral zone
+Left Midbrain, sensory related
+Left Midbrain, motor related
+Left Midbrain, behavioral state related
+Left Central lobule
+Left Culmen
+Left Nodulus (X)
+Left Simple lobule
+Left Ansiform lobule
+Left Paraflocculus

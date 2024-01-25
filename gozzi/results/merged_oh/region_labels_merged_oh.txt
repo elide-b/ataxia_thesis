@@ -1,0 +1,338 @@
+Right Frontal pole, cerebral cortex
+Right Primary motor area
+Right Secondary motor area
+Right Primary somatosensory area, nose
+Right Primary somatosensory area, barrel field
+Right Primary somatosensory area, lower limb
+Right Primary somatosensory area, mouth
+Right Primary somatosensory area, upper limb
+Right Primary somatosensory area, trunk
+Right Primary somatosensory area, unassigned
+Right Supplemental somatosensory area
+Right Gustatory areas
+Right Visceral area
+Right Dorsal auditory area
+Right Primary auditory area
+Right Posterior auditory area
+Right Ventral auditory area
+Right Anterolateral visual area
+Right Anteromedial visual area
+Right Lateral visual area
+Right Primary visual area
+Right Posterolateral visual area
+Right posteromedial visual area
+Right Laterointermediate area
+Right Postrhinal area
+Right Anterior cingulate area, dorsal part
+Right Anterior cingulate area, ventral part
+Right Prelimbic area
+Right Infralimbic area
+Right Orbital area
+Right Agranular insular area, dorsal part
+Right Agranular insular area, posterior part
+Right Agranular insular area, ventral part
+Right Retrosplenial area, lateral agranular part
+Right Retrosplenial area, dorsal part
+Right Retrosplenial area, ventral part
+Right Posterior parietal association areas
+Right Temporal association areas
+Right Perirhinal area
+Right Ectorhinal area
+Right Main olfactory bulb
+Right Accessory olfactory bulb
+Right Anterior olfactory nucleus
+Right Taenia tecta
+Right Dorsal peduncular area
+Right Piriform area
+Right Nucleus of the lateral olfactory tract
+Right Cortical amygdalar area
+Right Piriform-amygdalar area
+Right Postpiriform transition area
+Right Ammon's horn
+Right Dentate gyrus
+Right Induseum griseum
+Right Entorhinal area
+Right Parasubiculum
+Right Postsubiculum
+Right Presubiculum
+Right Subiculum
+Right Prosubiculum
+Right Area prostriata
+Right Claustrum
+Right Endopiriform nucleus
+Right Lateral amygdalar nucleus
+Right Basolateral amygdalar nucleus
+Right Basomedial amygdalar nucleus
+Right Posterior amygdalar nucleus
+Right Caudoputamen
+Right Striatum ventral region
+Right Lateral septal complex
+Right Striatum-like amygdalar nuclei
+Right Pallidum, dorsal region
+Right Pallidum, ventral region
+Right Pallidum, medial region
+Right Pallidum, caudal region
+Right Thalamus, sensory-motor cortex related
+Right Thalamus, polymodal association cortex related
+Right Periventricular zone
+Right Periventricular region
+Right Hypothalamic medial zone
+Right Hypothalamic lateral zone
+Right Midbrain, sensory related
+Right Midbrain, motor related
+Right Anterior pretectal nucleus
+Right Medial pretectal area
+Right Nucleus of the optic tract
+Right Nucleus of the posterior commissure
+Right Olivary pretectal nucleus
+Right Posterior pretectal nucleus
+Right Medial terminal nucleus of the accessory optic tract
+Right Midbrain, behavioral state related
+Right Nucleus of the lateral lemniscus
+Right Principal sensory nucleus of the trigeminal
+Right Parabrachial nucleus
+Right Barrington's nucleus
+Right Dorsal tegmental nucleus
+Right Posterodorsal tegmental nucleus
+Right Pontine central gray
+Right Pontine gray
+Right Pontine reticular nucleus, caudal part
+Right Supratrigeminal nucleus
+Right Tegmental reticular nucleus
+Right Motor nucleus of trigeminal
+Right Peritrigeminal zone
+Right Intertrigeminal nucleus
+Right Superior central nucleus raphe
+Right Locus ceruleus
+Right Laterodorsal tegmental nucleus
+Right Nucleus incertus
+Right Pontine reticular nucleus
+Right Nucleus raphe pontis
+Right Subceruleus nucleus
+Right Sublaterodorsal nucleus
+Right Dorsal cochlear nucleus
+Right Ventral cochlear nucleus
+Right Cuneate nucleus
+Right Gracile nucleus
+Right Nucleus of the trapezoid body
+Right Nucleus of the solitary tract
+Right Spinal nucleus of the trigeminal, caudal part
+Right Spinal nucleus of the trigeminal, interpolar part
+Right Spinal nucleus of the trigeminal, oral part
+Right Paratrigeminal nucleus
+Right Abducens nucleus
+Right Facial motor nucleus
+Right Nucleus ambiguus
+Right Dorsal motor nucleus of the vagus nerve
+Right Gigantocellular reticular nucleus
+Right Inferior olivary complex
+Right Intermediate reticular nucleus
+Right Inferior salivatory nucleus
+Right Linear nucleus of the medulla
+Right Lateral reticular nucleus
+Right Magnocellular reticular nucleus
+Right Medullary reticular nucleus
+Right Medullary reticular nucleus, dorsal part
+Right Medullary reticular nucleus, ventral part
+Right Parvicellular reticular nucleus
+Right Paragigantocellular reticular nucleus, dorsal part
+Right Paragigantocellular reticular nucleus, lateral part
+Right Nucleus of Roller
+Right Nucleus prepositus
+Right Parapyramidal nucleus
+Right Lateral vestibular nucleus
+Right Medial vestibular nucleus
+Right Spinal vestibular nucleus
+Right Superior vestibular nucleus
+Right Nucleus x
+Right Hypoglossal nucleus
+Right Nucleus y
+Right Nucleus raphe magnus
+Right Nucleus raphe obscurus
+Right Lingula (I)
+Right Central lobule
+Right Culmen
+Right Declive (VI)
+Right Folium-tuber vermis (VII)
+Right Pyramus (VIII)
+Right Uvula (IX)
+Right Nodulus (X)
+Right Simple lobule
+Right Ansiform lobule
+Right Paramedian lobule
+Right Copula pyramidis
+Right Paraflocculus
+Right Flocculus
+Right Fastigial nucleus
+Right Interposed nucleus
+Right Dentate nucleus
+Right Vestibulocerebellar nucleus
+Left Frontal pole, cerebral cortex
+Left Primary motor area
+Left Secondary motor area
+Left Primary somatosensory area, nose
+Left Primary somatosensory area, barrel field
+Left Primary somatosensory area, lower limb
+Left Primary somatosensory area, mouth
+Left Primary somatosensory area, upper limb
+Left Primary somatosensory area, trunk
+Left Primary somatosensory area, unassigned
+Left Supplemental somatosensory area
+Left Gustatory areas
+Left Visceral area
+Left Dorsal auditory area
+Left Primary auditory area
+Left Posterior auditory area
+Left Ventral auditory area
+Left Anterolateral visual area
+Left Anteromedial visual area
+Left Lateral visual area
+Left Primary visual area
+Left Posterolateral visual area
+Left posteromedial visual area
+Left Laterointermediate area
+Left Postrhinal area
+Left Anterior cingulate area, dorsal part
+Left Anterior cingulate area, ventral part
+Left Prelimbic area
+Left Infralimbic area
+Left Orbital area
+Left Agranular insular area, dorsal part
+Left Agranular insular area, posterior part
+Left Agranular insular area, ventral part
+Left Retrosplenial area, lateral agranular part
+Left Retrosplenial area, dorsal part
+Left Retrosplenial area, ventral part
+Left Posterior parietal association areas
+Left Temporal association areas
+Left Perirhinal area
+Left Ectorhinal area
+Left Main olfactory bulb
+Left Accessory olfactory bulb
+Left Anterior olfactory nucleus
+Left Taenia tecta
+Left Dorsal peduncular area
+Left Piriform area
+Left Nucleus of the lateral olfactory tract
+Left Cortical amygdalar area
+Left Piriform-amygdalar area
+Left Postpiriform transition area
+Left Ammon's horn
+Left Dentate gyrus
+Left Induseum griseum
+Left Entorhinal area
+Left Parasubiculum
+Left Postsubiculum
+Left Presubiculum
+Left Subiculum
+Left Prosubiculum
+Left Area prostriata
+Left Claustrum
+Left Endopiriform nucleus
+Left Lateral amygdalar nucleus
+Left Basolateral amygdalar nucleus
+Left Basomedial amygdalar nucleus
+Left Posterior amygdalar nucleus
+Left Caudoputamen
+Left Striatum ventral region
+Left Lateral septal complex
+Left Striatum-like amygdalar nuclei
+Left Pallidum, dorsal region
+Left Pallidum, ventral region
+Left Pallidum, medial region
+Left Pallidum, caudal region
+Left Thalamus, sensory-motor cortex related
+Left Thalamus, polymodal association cortex related
+Left Periventricular zone
+Left Periventricular region
+Left Hypothalamic medial zone
+Left Hypothalamic lateral zone
+Left Midbrain, sensory related
+Left Midbrain, motor related
+Left Anterior pretectal nucleus
+Left Medial pretectal area
+Left Nucleus of the optic tract
+Left Nucleus of the posterior commissure
+Left Olivary pretectal nucleus
+Left Posterior pretectal nucleus
+Left Medial terminal nucleus of the accessory optic tract
+Left Midbrain, behavioral state related
+Left Nucleus of the lateral lemniscus
+Left Principal sensory nucleus of the trigeminal
+Left Parabrachial nucleus
+Left Barrington's nucleus
+Left Dorsal tegmental nucleus
+Left Posterodorsal tegmental nucleus
+Left Pontine central gray
+Left Pontine gray
+Left Pontine reticular nucleus, caudal part
+Left Supratrigeminal nucleus
+Left Tegmental reticular nucleus
+Left Motor nucleus of trigeminal
+Left Peritrigeminal zone
+Left Intertrigeminal nucleus
+Left Superior central nucleus raphe
+Left Locus ceruleus
+Left Laterodorsal tegmental nucleus
+Left Nucleus incertus
+Left Pontine reticular nucleus
+Left Nucleus raphe pontis
+Left Subceruleus nucleus
+Left Sublaterodorsal nucleus
+Left Dorsal cochlear nucleus
+Left Ventral cochlear nucleus
+Left Cuneate nucleus
+Left Gracile nucleus
+Left Nucleus of the trapezoid body
+Left Nucleus of the solitary tract
+Left Spinal nucleus of the trigeminal, caudal part
+Left Spinal nucleus of the trigeminal, interpolar part
+Left Spinal nucleus of the trigeminal, oral part
+Left Paratrigeminal nucleus
+Left Abducens nucleus
+Left Facial motor nucleus
+Left Nucleus ambiguus
+Left Dorsal motor nucleus of the vagus nerve
+Left Gigantocellular reticular nucleus
+Left Inferior olivary complex
+Left Intermediate reticular nucleus
+Left Inferior salivatory nucleus
+Left Linear nucleus of the medulla
+Left Lateral reticular nucleus
+Left Magnocellular reticular nucleus
+Left Medullary reticular nucleus
+Left Medullary reticular nucleus, dorsal part
+Left Medullary reticular nucleus, ventral part
+Left Parvicellular reticular nucleus
+Left Paragigantocellular reticular nucleus, dorsal part
+Left Paragigantocellular reticular nucleus, lateral part
+Left Nucleus of Roller
+Left Nucleus prepositus
+Left Parapyramidal nucleus
+Left Lateral vestibular nucleus
+Left Medial vestibular nucleus
+Left Spinal vestibular nucleus
+Left Superior vestibular nucleus
+Left Nucleus x
+Left Hypoglossal nucleus
+Left Nucleus y
+Left Nucleus raphe magnus
+Left Nucleus raphe obscurus
+Left Lingula (I)
+Left Central lobule
+Left Culmen
+Left Declive (VI)
+Left Folium-tuber vermis (VII)
+Left Pyramus (VIII)
+Left Uvula (IX)
+Left Nodulus (X)
+Left Simple lobule
+Left Ansiform lobule
+Left Paramedian lobule
+Left Copula pyramidis
+Left Paraflocculus
+Left Flocculus
+Left Fastigial nucleus
+Left Interposed nucleus
+Left Dentate nucleus
+Left Vestibulocerebellar nucleus
