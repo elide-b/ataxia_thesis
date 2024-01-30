@@ -1,5 +1,6 @@
 tvb-library
 deap
 mpipool
+mpi4py
 plotly
 scipy
