@@ -1,0 +1,5 @@
+tvb-library
+deap
+mpipool
+plotly
+scipy
