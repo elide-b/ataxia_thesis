@@ -6,7 +6,8 @@ DATA SPECIFICS:
 
 - 7T MRI scanner (72-mm birdcage transmit
 coil and a 4-channel solenoid coil for signal reception)
-- Repetition time [TR]: 1000 ms
+- Total scanning time: ~30 minutes (1869 s)
+- Repetition time [TR]: 1000 ms (also used as the dt of BOLD simulation)
 - Echo time [TE]: 15 ms
 - Matrix: 192 x 192
 - Field of view: 2 x 2 cm
