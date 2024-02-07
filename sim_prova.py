@@ -11,6 +11,8 @@ import time
 from scipy.io import loadmat
 import os
 import pandas as pd
+from scipy.stats import ks_2samp
+
 
 
 def load_emp(MOUSE_ID='ag171031a'):
@@ -163,7 +165,17 @@ regions_gozzi, fc_emp, bold_emp = load_emp()
 #corr_fc = predictive_power(fc_sim, fc_emp, conn.region_labels, regions_gozzi)
 #print(corr_fc)
 
+# levare da region gozzi il corrispondente del caudoputamen e sostituirlo
+
 bold_emp = bold_emp[:len(t_sim)]    # just to try with a very short simulation
+to_delate = ['Right Hippocampo-amygdalar transition area', 'Left Hippocampo-amygdalar transition area']
+inds_to_delate = []
+for i, reg in enumerate(regions_gozzi):
+    if reg in to_delate:
+        inds_to_delate.append(i)
+
+bold_emp = bold_emp.drop(bold_emp.columns[inds_to_delate], axis=1)
+
 bold_sim_common = pd.DataFrame(bold_sim[:,0,:,0])
 
 drop_inds = []
@@ -173,10 +185,6 @@ for i, reg in enumerate(conn.region_labels):
 
 
 bold_sim_common = bold_sim_common.drop(bold_sim_common.columns[drop_inds], axis=1)
-
-
-print(bold_sim_common.shape)
-print(bold_emp.shape)
-
 fcd_emp = compute_fcd(bold_emp)
 fcd_sim = compute_fcd(bold_sim_common)
+test = ks_2samp(fcd_emp,fcd_sim)

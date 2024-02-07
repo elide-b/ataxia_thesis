@@ -64,7 +64,7 @@ Right Lateral amygdalar nucleus
 Right Basolateral amygdalar nucleus
 Right Basomedial amygdalar nucleus
 Right Posterior amygdalar nucleus
-Right Caudoputamen
+Right Striatum dorsal region
 Right Striatum ventral region
 Right Lateral septal complex
 Right Striatum-like amygdalar nuclei
@@ -233,7 +233,7 @@ Left Lateral amygdalar nucleus
 Left Basolateral amygdalar nucleus
 Left Basomedial amygdalar nucleus
 Left Posterior amygdalar nucleus
-Left Caudoputamen
+Left Striatum dorsal region
 Left Striatum ventral region
 Left Lateral septal complex
 Left Striatum-like amygdalar nuclei
