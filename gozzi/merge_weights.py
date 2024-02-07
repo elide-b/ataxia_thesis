@@ -20,6 +20,7 @@ reg_labels_gozzi = list(pd.read_excel(io=GOZZI_LABELS_FILE)['NAME'])
 reg_labels_gozzi.append('Caudoputamen')
 regions_labels_gozzi = ['Right ' + reg for reg in reg_labels_gozzi] + ['Left ' + reg for reg in reg_labels_gozzi]
 
+# manca Hippocampo-amygdalar transition area
 dict_areas = {
     "Ammon's horn": ['Field CA1', 'Field CA2', 'Field CA3'],
     "Entorhinal area": ['Entorhinal area, lateral part', 'Entorhinal area, medial part, dorsal zone'],
@@ -193,18 +194,17 @@ plt.savefig('conn_merged.png', dpi=600)
 plt.show()
 
 # only gozzi regions
-print('For Gozzi')
 inds_gozzi = [i for i, reg in enumerate(labels) if reg in regions_labels_gozzi]
 conn_gozzi = conn[np.ix_(inds_gozzi, inds_gozzi)]
 
 # np.savetxt('weights_gozzi.txt', conn_gozzi)
 
-conn_gozzi_norm = conn_gozzi/np.max(conn_gozzi)
+conn_gozzi_norm = conn_gozzi / np.max(conn_gozzi)
 plt.title('Connectivity Gozzi regions')
 plt.imshow(conn_gozzi_norm, cmap='viridis')
 # plt.xticks(np.arange(len(reg_gozzi)), reg_gozzi)
 # plt.yticks(np.arange(len(reg_gozzi)), reg_gozzi)
 plt.colorbar()
 plt.tight_layout()
-plt.savefig('conn_gozzi.png', dpi = 600)
+plt.savefig('conn_gozzi.png', dpi=600)
 plt.show()
