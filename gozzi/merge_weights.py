@@ -1,17 +1,10 @@
-import sys
-
-# sys.path.append('/Users/marialauradegrazia/Desktop/my_TVB/TVMB_ongoing')
-
-import os
-from collections import OrderedDict
-import time
 import numpy as np
 from connectivity import load_mousebrain
-from plots import plot_weights, plot_matrix
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 from copy import deepcopy
+import json
+voxel = json.loads(open('voxels.json', 'r').read())
 
 conn_oh = load_mousebrain("Connectivity_02531729cb0d470d9a62dcff9158a952.h5", norm=False, scale=False)
 

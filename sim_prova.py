@@ -12,7 +12,7 @@ from scipy.io import loadmat
 import os
 import pandas as pd
 from scipy.stats import ks_2samp
-
+from connectivity import load_mousebrain
 
 
 def load_emp(MOUSE_ID='ag171031a'):
@@ -28,23 +28,26 @@ def load_emp(MOUSE_ID='ag171031a'):
     data_mat = loadmat(data_dir)
     bold_data = data_mat[MOUSE_ID + '_WT_tsc2_smoothed']
     bold_data = pd.DataFrame(bold_data)
-    # empirical static FC
-    fc_emp = np.corrcoef(bold_data, rowvar=False)
-
-    return regions_labels_tot, fc_emp, bold_data
+    return regions_labels_tot, bold_data
 
 
-def plot_connectivity(conn):
+def plot_connectivity(conn, show=True):
     plt.title('Connectivty weigths')
     plt.imshow(conn.weights)
     plt.colorbar()
-    plt.show()
+    if show:
+        plt.show()
 
 
 def plot_fc(FC_mat, show=True):
     plt.title('Simulated FC')
     plt.imshow(FC_mat)
     plt.colorbar()
+    if show:
+        plt.show()
+
+def plot_timeseries(t,data,show=False):
+    plt.plot(t,data)
     if show:
         plt.show()
 
@@ -81,23 +84,25 @@ def simulate(conn,
              G=1,
              sigma=0.015,
              bold_resolution=1000,
+             tavg_resolution=1.,
              sim_len=1000):  # 1869 * 1000 to match gozzi acquisitions
     simulator = Simulator()
     simulator.connectivity = conn
     simulator.model = ReducedWongWangExcInh()
     simulator.model.dt = dt
     simulator.coupling = Scaling(a=np.array(G))
-    simulator.initial_conditions = (0.001) * np.ones((2, 2, len(conn.weights), 1))
+    simulator.initial_conditions = (0.001) * np.random.uniform(size=(2, 2, len(conn.weights), 1))
     simulator.integrator = HeunStochastic(dt=dt)
     simulator.integrator.noise = noise.Additive(nsig=np.array([(sigma ** 2) / 2]))
     mon_bold = Bold(period=dt * bold_resolution)
-    simulator.monitors = (mon_bold,)
+    mon_tavg = TemporalAverage(period=dt*tavg_resolution)
+    simulator.monitors = (mon_bold,mon_tavg)
     simulator.configure()
     start_time = time.time()
-    (t, bold), = simulator.run(simulation_length=sim_len)
+    (t1, bold),(t2,tavg) = simulator.run(simulation_length=sim_len)
     end_time = time.time()
     print('Simulation time: ', end_time - start_time)
-    return t, bold
+    return t1, bold, t2, tavg
 
 
 def compute_fcd(bold_data, tau=60, w_step=20):
@@ -148,6 +153,17 @@ def predictive_power(conn1, conn2, regions1=None, regions2=None):
     return pp
 
 
+
+conn_oh = load_mousebrain("Connectivity_02531729cb0d470d9a62dcff9158a952.h5", norm=False, scale=False)
+#conn_std = load_mousebrain("connectivity_76.zip", norm=False,scale=False)
+plot_connectivity(conn_oh,show=True)
+
+t1, bold, t2, tavg = simulate(conn_oh, sim_len=100000, dt=1, G=0.01, bold_resolution=1000)
+#np.save("bold.npy", bold)
+#np.save("time.npy", t1)
+plot_timeseries(t1[4:],bold[4:,0,:,0],show=True)
+#plot_timeseries(t2,tavg[4:,0,:,0],show=True)
+
 INPUT_PATH = './gozzi/results/merged_oh'
 conn = Connectivity()
 conn.weights = np.loadtxt(INPUT_PATH + '/weights_merged_oh.txt')
@@ -155,19 +171,35 @@ conn.centres = np.loadtxt(INPUT_PATH + '/centres_merged_oh.txt')
 conn.region_labels = np.genfromtxt(INPUT_PATH + '/region_labels_merged_oh.txt', dtype=str, delimiter='\n')
 conn.tract_lengths = np.loadtxt(INPUT_PATH + '/tract_lengths_merged_oh.txt')
 
-final_conn = prepare_conn(conn, show=False)
-t_sim, bold_sim = simulate(conn)
-regions_gozzi, fc_emp, bold_emp = load_emp()
+#final_conn = prepare_conn(conn, show=False)
+regions_gozzi, bold_emp = load_emp()
 
-
-#fc_sim = np.corrcoef(bold[:, 0, :, 0], rowvar=False)
-#plot_fc(fc_sim, show=True)
-#corr_fc = predictive_power(fc_sim, fc_emp, conn.region_labels, regions_gozzi)
+# empirical static FC
+#fc_emp = np.corrcoef(bold_emp[transient:,:], rowvar=False)
+fc_sim = np.corrcoef(bold[:, 0, :, 0], rowvar=False)
+plot_fc(fc_sim, show=True)
+#corr_fc = predictive_power(fc_sim, fc_emp, conn_oh.region_labels, regions_gozzi)
 #print(corr_fc)
+
+exit()
+
+
+
+#### DA SISTEMARE PER FCD SIM AND EMP
+
+
+
+
+
+
+# fc_sim = np.corrcoef(bold[:, 0, :, 0], rowvar=False)
+# plot_fc(fc_sim, show=True)
+# corr_fc = predictive_power(fc_sim, fc_emp, conn.region_labels, regions_gozzi)
+# print(corr_fc)
 
 # levare da region gozzi il corrispondente del caudoputamen e sostituirlo
 
-bold_emp = bold_emp[:len(t_sim)]    # just to try with a very short simulation
+bold_emp = bold_emp[:len(t_sim)]  # just to try with a very short simulation
 to_delate = ['Right Hippocampo-amygdalar transition area', 'Left Hippocampo-amygdalar transition area']
 inds_to_delate = []
 for i, reg in enumerate(regions_gozzi):
@@ -176,15 +208,14 @@ for i, reg in enumerate(regions_gozzi):
 
 bold_emp = bold_emp.drop(bold_emp.columns[inds_to_delate], axis=1)
 
-bold_sim_common = pd.DataFrame(bold_sim[:,0,:,0])
+bold_sim_common = pd.DataFrame(bold_sim[:, 0, :, 0])
 
 drop_inds = []
 for i, reg in enumerate(conn.region_labels):
     if reg not in regions_gozzi:
         drop_inds.append(i)
 
-
 bold_sim_common = bold_sim_common.drop(bold_sim_common.columns[drop_inds], axis=1)
 fcd_emp = compute_fcd(bold_emp)
 fcd_sim = compute_fcd(bold_sim_common)
-test = ks_2samp(fcd_emp,fcd_sim)
+test = ks_2samp(fcd_emp, fcd_sim)
