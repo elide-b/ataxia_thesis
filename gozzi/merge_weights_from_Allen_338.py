@@ -1,10 +1,3 @@
-import sys
-
-sys.path.append('/home/marialaura/Scrivania/TVMB_ongoing')
-
-import os
-from collections import OrderedDict
-import time
 import numpy as np
 from connectivity import load_mousebrain
 from plots import plot_weights, plot_matrix
@@ -29,7 +22,7 @@ regions_labels_gozzi = ['Left ' + reg for reg in reg_labels_gozzi] + ['Right ' +
 
 
 
-matrix = np.zeros((len(reg_labels_gozzi) * 2, len(reg_labels_gozzi) * 2))
+matrix = np.zeros((338, 338))
 conn = np.copy(conn_oh.weights)
 
 
