@@ -154,12 +154,16 @@ def predictive_power(conn1, conn2, regions1=None, regions2=None):
     conn1 = conn1[inds1, :][:, inds1]
     conn2 = conn2[inds2, :][:, inds2]
 
-    offdiag_mask = ~np.eye(ncommon, dtype=bool)
+    # offdiag_mask = ~np.eye(ncommon, dtype=bool)
 
-    pp = np.corrcoef(conn1[offdiag_mask],
-                     conn2[offdiag_mask])[1, 0]
+    # pp = np.corrcoef(conn1[offdiag_mask],
+    #                 conn2[offdiag_mask])[1, 0]
 
-    return pp
+    empFC_wb = np.triu(conn1, 1)  # triangle matrix
+    simFC_wb = np.triu(conn2, 1)
+    pcc_wb = np.corrcoef(empFC_wb.ravel(), simFC_wb.ravel())[0, 1]
+
+    return pcc_wb
 
 
 def one_simulation(G, simlen, dt):
@@ -169,13 +173,15 @@ def one_simulation(G, simlen, dt):
     conn.centres = np.loadtxt(INPUT_PATH + '/centres_merged_oh.txt')
     conn.region_labels = np.genfromtxt(INPUT_PATH + '/region_labels_merged_oh.txt', dtype=str, delimiter='\n')
     conn.tract_lengths = np.loadtxt(INPUT_PATH + '/tract_lengths_merged_oh.txt')
-    # conn_oh = load_mousebrain("Connectivity_02531729cb0d470d9a62dcff9158a952.h5", norm=False, scale=False)
-    final_conn = prepare_conn(conn, show=False, normalize=True, log_trans=False)
-    # plot_connectivity(final_conn,show=False)
 
-    t1, bold = simulate(final_conn, sim_len=simlen, dt=dt, G=G, bold_resolution=1000)
-    fc_sim = np.corrcoef(bold[4:, 0, :, 0], rowvar=False)
-    plot_fc(fc_sim, show=False)
+    final_conn = prepare_conn(conn, show=False, normalize=True, log_trans=True)
+    # plot_connectivity(final_conn,show=False,save=True)
+
+    transient = 4
+    t1, bold = simulate(final_conn, sim_len=1000 * 1869, dt=1, G=0.05, bold_resolution=1000)
+    fc_sim = np.corrcoef(bold[transient:, 0, :, 0], rowvar=False)
+    print('Point BOLD: ', bold.shape[0])
+    plot_fc(fc_sim, show=True)
     # np.save("bold.npy", bold)
     # np.save("time.npy", t1)
     # plot_timeseries(t1[4:],bold[4:,0,:,0], show=True)
@@ -184,9 +190,12 @@ def one_simulation(G, simlen, dt):
     regions_gozzi, bold_emp = load_emp()
 
     # empirical static FC
-    fc_emp = np.corrcoef(bold_emp.T, rowvar=False)
+    fc_emp = np.corrcoef(bold_emp, rowvar=False)
     corr_fc = predictive_power(fc_sim, fc_emp, final_conn.region_labels, regions_gozzi)
     print('Predictive power sim vs emp (Static FC):', corr_fc)
+
+    # levare da region gozzi il corrispondente del caudoputamen e sostituirlo con la relativa area di gozzi (sostituito in
+    # region_labels_oh_merged.txt)
 
     bold_emp = bold_emp[:len(t1)]  # just to try with a very short simulation
     to_delate = ['Right Hippocampo-amygdalar transition area', 'Left Hippocampo-amygdalar transition area']
@@ -208,11 +217,13 @@ def one_simulation(G, simlen, dt):
 
     fcd_emp = compute_fcd(bold_emp)
     fcd_sim = compute_fcd(bold_sim_common)
+    plot_fc(fcd_sim, show=True, save=False)
     n = fcd_sim.shape[0]
     fcd_sim = fcd_sim[np.triu_indices(n, 1)]
     fcd_emp = fcd_emp[np.triu_indices(n, 1)]
-    # Compute Kolmogorov distance
-    k_d = ks_2samp(fcd_emp, fcd_sim)[0]
-    print('Kolmogorov distance FCD sim vs emp: ', k_d)
 
-    return corr_fc, k_d
+    # Compute Kolmogorov distance
+    KS = ks_2samp(fcd_emp, fcd_sim)[0]
+    print('Kolmogorov distance FCD sim vs emp: ', KS)
+
+    return corr_fc, KS

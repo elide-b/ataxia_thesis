@@ -1,4 +1,4 @@
-deatvb-library
+tvb-library
 deap
 mpipool
 mpi4py

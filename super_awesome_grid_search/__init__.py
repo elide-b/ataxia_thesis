@@ -1,4 +1,5 @@
 import builtins
+from pathlib import Path
 
 import numpy as np
 import plotly.graph_objs as go
@@ -82,9 +83,11 @@ def interleave(a, b):
 
 
 def plot_progress(log):
+    path = str(Path("grid_opt.html").resolve())
+    print(f"Writing progress to: {path}")
     go.Figure(
         [
             go.Scatter(x=sample_points, y=results, name=f"Iteration {i}")
             for i, (sample_points, results, hats) in enumerate(log)
         ]
-    ).write_html("grid_opt.html")
+    ).write_html(path)

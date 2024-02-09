@@ -30,10 +30,12 @@ def load_emp(MOUSE_ID='ag171031a'):
     bold_data = pd.DataFrame(bold_data)
     return regions_labels_tot, bold_data
 
-def plot_connectivity(conn, show=True):
+def plot_connectivity(conn, show=True, save = False):
     plt.title('Connectivty weigths')
     plt.imshow(conn.weights)
     plt.colorbar()
+    if save:
+        plt.savefig('conn.png')
     if show:
         plt.show()
 
@@ -121,6 +123,7 @@ def compute_fcd(bold_data, tau=60, w_step=20):
         triu_FC_windows.append(np.triu(fc))
 
     n_windows = len(triu_FC_windows)
+
     fcd = np.zeros(shape=(n_windows, n_windows))
 
     for i in range(n_windows):
@@ -154,6 +157,10 @@ def predictive_power(conn1, conn2, regions1=None, regions2=None):
     pp = np.corrcoef(conn1[offdiag_mask],
                      conn2[offdiag_mask])[1, 0]
 
+    #empFC_wb = np.triu(conn1, 1)  # triangle matrix
+    #simFC_wb = np.triu(conn2, 1)
+    #pcc_wb = np.corrcoef(empFC_wb.ravel(), simFC_wb.ravel())[0, 1]
+
     return pp
 
 
@@ -163,14 +170,16 @@ conn.weights = np.loadtxt(INPUT_PATH + '/weights_merged_oh.txt')
 conn.centres = np.loadtxt(INPUT_PATH + '/centres_merged_oh.txt')
 conn.region_labels = np.genfromtxt(INPUT_PATH + '/region_labels_merged_oh.txt', dtype=str, delimiter='\n')
 conn.tract_lengths = np.loadtxt(INPUT_PATH + '/tract_lengths_merged_oh.txt')
-#conn_oh = load_mousebrain("Connectivity_02531729cb0d470d9a62dcff9158a952.h5", norm=False, scale=False)
-final_conn = prepare_conn(conn, show=False, normalize=True, log_trans=False)
-#plot_connectivity(final_conn,show=False)
+
+final_conn = prepare_conn(conn, show=False, normalize=True, log_trans=True)
+#plot_connectivity(final_conn,show=False,save=True)
 
 
-t1, bold = simulate(final_conn, sim_len=350000, dt=0.1, G=6, bold_resolution=1000)
-fc_sim = np.corrcoef(bold[4:, 0, :, 0], rowvar=False)
-plot_fc(fc_sim, show=False)
+transient = 4
+t1, bold = simulate(final_conn, sim_len=1000*1869, dt=1, G=0.01, bold_resolution=1000)
+fc_sim = np.corrcoef(bold[transient:, 0, :, 0], rowvar=False)
+print('Point BOLD: ', bold.shape[0])
+plot_fc(fc_sim, show=True)
 #np.save("bold.npy", bold)
 #np.save("time.npy", t1)
 #plot_timeseries(t1[4:],bold[4:,0,:,0], show=True)
@@ -183,9 +192,6 @@ regions_gozzi, bold_emp = load_emp()
 fc_emp = np.corrcoef(bold_emp, rowvar=False)
 corr_fc = predictive_power(fc_sim, fc_emp, final_conn.region_labels, regions_gozzi)
 print('Predictive power sim vs emp (Static FC):', corr_fc)
-
-exit()
-
 
 
 # levare da region gozzi il corrispondente del caudoputamen e sostituirlo con la relativa area di gozzi (sostituito in
@@ -211,9 +217,11 @@ bold_sim_common = bold_sim_common.drop(bold_sim_common.columns[drop_inds], axis=
 
 fcd_emp = compute_fcd(bold_emp)
 fcd_sim = compute_fcd(bold_sim_common)
+plot_fc(fcd_sim, show=True, save=False)
 n = fcd_sim.shape[0]
 fcd_sim = fcd_sim[np.triu_indices(n, 1)]
 fcd_emp = fcd_emp[np.triu_indices(n, 1)]
+#go.Figure([go.Histogram(x=fc, name=f"{len(fc)} emp samples"), go.Histogram(x=fc, name=f"{len(fc)} sim samples"), ]).write_html("")
 # Compute Kolmogorov distance
-KS = stats.ks_2samp(fcd_emp, fcd_sim)[0]
+KS = ks_2samp(fcd_emp, fcd_sim)[0]
 print('Kolmogorov distance FCD sim vs emp: ', KS)
