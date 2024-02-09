@@ -111,8 +111,10 @@ def simulate(conn,
     print('Simulation time: ', end_time - start_time)
     return t1, bold
 
+fcds = []
 
 def compute_fcd(bold_data, tau=60, w_step=20):
+    global fcds
     FC_windows = []
     triu_FC_windows = []
 
@@ -126,9 +128,12 @@ def compute_fcd(bold_data, tau=60, w_step=20):
 
     fcd = np.zeros(shape=(n_windows, n_windows))
 
+    print("WINDOW DATA:", len(triu_FC_windows))
+
     for i in range(n_windows):
         for j in range(n_windows):
             fcd[i][j] = np.corrcoef(triu_FC_windows[i].ravel(), triu_FC_windows[j].ravel())[0, 1]
+    fcds.append(triu_FC_windows)
     return fcd
 
 def common_regions(regions1, regions2):
@@ -221,7 +226,17 @@ plot_fc(fcd_sim, show=True, save=False)
 n = fcd_sim.shape[0]
 fcd_sim = fcd_sim[np.triu_indices(n, 1)]
 fcd_emp = fcd_emp[np.triu_indices(n, 1)]
-#go.Figure([go.Histogram(x=fc, name=f"{len(fc)} emp samples"), go.Histogram(x=fc, name=f"{len(fc)} sim samples"), ]).write_html("")
+
+print("Are we crazy?")
+print("Shapes:", fcd_sim.shape, fcd_emp.shape)
+print("Mean:", fcd_sim.mean(), fcd_emp.mean())
+
 # Compute Kolmogorov distance
-KS = ks_2samp(fcd_emp, fcd_sim)[0]
+KS_1d = ks_2samp(fcd_emp.ravel(), fcd_sim.ravel())
+KS = ks_2samp(fcd_emp, fcd_sim)
+print("1d problem?", KS, KS_1d)
+import plotly.graph_objs as go
+
+go.Figure([go.Histogram(x=fcd_sim, name=f"Simulated FCD ({fcd_sim.shape})"),
+           go.Histogram(x=fcd_emp, name=f"Empirical FCD ({fcd_emp.shape})")]).write_html(f"ks_{KS[0]}.html")
 print('Kolmogorov distance FCD sim vs emp: ', KS)
