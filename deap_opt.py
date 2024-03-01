@@ -2,7 +2,6 @@ import numpy as np
 
 from connectivity import load_mousebrain
 from simulation import simulate_modified
-
 from super_awesome_deap.optimization import optimize
 from super_awesome_deap.tools import Individual, Param
 

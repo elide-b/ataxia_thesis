@@ -1,18 +1,18 @@
+import os
+import time
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from scipy.io import loadmat
+from scipy.stats import ks_2samp
 from tvb.datatypes.connectivity import Connectivity
 from tvb.simulator import noise
-from tvb.simulator.coupling import Linear, Scaling
-from tvb.simulator.integrators import EulerDeterministic, HeunStochastic
+from tvb.simulator.coupling import Scaling
+from tvb.simulator.integrators import HeunStochastic
 from tvb.simulator.models.wong_wang_exc_inh import ReducedWongWangExcInh
-from tvb.simulator.monitors import Bold, TemporalAverage
+from tvb.simulator.monitors import Bold
 from tvb.simulator.simulator import Simulator
-import numpy as np
-import matplotlib.pyplot as plt
-import time
-from scipy.io import loadmat
-import os
-import pandas as pd
-from scipy.stats import ks_2samp
-from connectivity import load_mousebrain
 
 
 def load_emp(MOUSE_ID='ag171031a'):

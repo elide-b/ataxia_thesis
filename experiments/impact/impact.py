@@ -1,5 +1,4 @@
-import numpy as np
-
+from ataxia.connectivity import load_mousebrain
 from ataxia.experiment import (
     BoolParameter,
     ConstantParameter,
@@ -7,7 +6,6 @@ from ataxia.experiment import (
     LinspaceParameter,
     Result,
 )
-from ataxia.connectivity import load_mousebrain
 from ataxia.simulation import simulate
 
 # Mouse brain

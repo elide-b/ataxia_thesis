@@ -16,11 +16,11 @@ from .tools import create_toolbox
 
 
 def optimize(
-    cls,
-    evaluate,
-    n_pop=50,
-    p_cx=0.5,
-    p_mut=0.20,
+        cls,
+        evaluate,
+        n_pop=50,
+        p_cx=0.5,
+        p_mut=0.20,
 ):
     toolbox = create_toolbox(cls, evaluate)
     if pool_size > 1:

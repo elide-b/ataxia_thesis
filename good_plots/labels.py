@@ -1,4 +1,5 @@
 import xlrd
+
 from connectivity import load_mousebrain
 
 brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
@@ -10,7 +11,7 @@ Oh_structures = []
 
 for rownum in range(sheet.nrows):
     Oh_structures.append(sheet.cell_value(rownum, 3))
-    #Oh_structures[1].append(sheet.cell_value(rownum, 4))
+    # Oh_structures[1].append(sheet.cell_value(rownum, 4))
 
 print(Oh_structures)
 
@@ -28,7 +29,6 @@ for i, r in enumerate(Oh_structures):
 print(structures_found)
 print(index_found)
 exit()
-
 
 # find the regions in the connectivity
 nreg = len(brain.region_labels)

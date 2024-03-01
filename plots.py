@@ -1,11 +1,12 @@
 import math
 from typing import Any, Union
+
 import numpy as np
+import plotly.express as px
 import plotly.graph_objs as go
 import plotly.io as pio
-from tvb.datatypes.connectivity import Connectivity
 from plotly.subplots import make_subplots
-import plotly.express as px
+from tvb.datatypes.connectivity import Connectivity
 
 pio.templates.default = pio.templates["simple_white"]
 

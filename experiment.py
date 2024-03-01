@@ -1,6 +1,4 @@
 import itertools
-import sys
-from typing import Mapping, Union
 
 import numpy as np
 
@@ -225,7 +223,7 @@ class Experiment:
         for k, v in data.items():
             if k == "__experiment":
                 continue
-            results[k] = Result(v.shape[len(experiment._parameters) :], v.dtype)
+            results[k] = Result(v.shape[len(experiment._parameters):], v.dtype)
             results[k].name = k
             setattr(results[k], "_data", v)
         experiment.__dict__["_results"] = results

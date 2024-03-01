@@ -2,13 +2,13 @@ import numpy as np
 from skimage.measure import block_reduce
 
 from plots import plot_activity
-import plotly.graph_objs as go
 
 data = np.load("global_ataxia.npz")
 
 
 def reduce(d):
     return block_reduce(d, block_size=(1, 1), func=np.mean)
+
 
 plot_activity(
     {

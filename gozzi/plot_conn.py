@@ -2,14 +2,9 @@ import sys
 
 sys.path.append('/home/marialaura/Scrivania/TVMB_ongoing')
 
-import os
-from collections import OrderedDict
-import time
 import numpy as np
 from connectivity import load_mousebrain
-from plots import plot_weights, plot_matrix
 import pandas as pd
-import warnings
 from mne_connectivity.viz import plot_connectivity_circle
 import matplotlib.pyplot as plt
 
@@ -62,7 +57,6 @@ for a in macro_gozzi:
 labels_path = 'results/only_gozzi/labels_gozzi.txt'
 with open(labels_path, 'r') as file:
     labels_gozzi = [line.strip() for line in file]
-
 
 weight_matrix = np.loadtxt('results/only_gozzi/weights_gozzi.txt')
 # norm_weight = weight_matrix/np.max(weight_matrix)

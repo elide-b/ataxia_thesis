@@ -5,15 +5,15 @@ from typing import Generator
 import numpy as np
 import tvb.datatypes.connectivity
 
-from ataxia.connectivity import get_cereb_region_mask
+from connectivity import get_cereb_region_mask
 
 
 @contextlib.contextmanager
 def ataxic_weights(
-    brain: tvb.datatypes.connectivity.Connectivity,
-    factor: float,
-    wholebrain: bool = False,
-    from_to: bool = True,
+        brain: tvb.datatypes.connectivity.Connectivity,
+        factor: float,
+        wholebrain: bool = False,
+        from_to: bool = True,
 ) -> Generator[None, None, None]:
     """
     A context manager to induce ataxia by editing the connectivity of the nodes.

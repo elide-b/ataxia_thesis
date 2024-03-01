@@ -1,14 +1,14 @@
 import numpy as np
 from tvb.simulator.lab import *
+
 from connectivity import load_mousebrain
-from rww_model_mary import *
 from plots import plot_weights
+from rww_model_mary import *
 
 # Loading mouse brain
 brain = load_mousebrain("Connectivity_596.h5", norm="log", scale="region")
 nreg = len(brain.weights)
 plot_weights(brain).write_html("norm_brain_weights.html")
-
 
 # Time variables
 dt = 0.1
@@ -50,11 +50,4 @@ for ia, a in enumerate(a_range):
         (t, _tavg), = simulate(a=a, J_i=Ji)
         data_tavg[ia, iJi] = np.swapaxes(_tavg, 0, 3)
 
-
 np.savez("firing_rate_normal.npz", tavg=data_tavg, time=t, a_range=a_range, Ji_range=Ji_range)
-
-
-# TODO:
-#  -> taglia transiente e poi plotta come matrice Re Ri per ogni regione per vedere diff (RSME o differenza o metriche di similarità)
-#  -> anche con istogramma con due barre Re, Ri per ogni regione (mask-no mask)
-

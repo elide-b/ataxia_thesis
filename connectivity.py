@@ -1,12 +1,11 @@
 import os
 import typing
+from pathlib import Path
 from typing import Literal
 
 import h5py as h5py
 import numpy as np
 from tvb.datatypes.connectivity import Connectivity
-from pathlib import Path
-
 
 _cereb_labels = [
     "Left_Central_lobule",
@@ -61,11 +60,11 @@ def _load_mousebrain_h5(subject):
 
 
 def load_mousebrain(
-    subject: str,
-    rem_diag: bool = True,
-    scale: typing.Union[Literal[False], Literal["tract"], Literal["region"]] = "region",
-    norm: typing.Union[Literal[False], Literal["max"], Literal["pct"], Literal["log"]] = "max",
-    dt: float = 0.1,
+        subject: str,
+        rem_diag: bool = True,
+        scale: typing.Union[Literal[False], Literal["tract"], Literal["region"]] = "region",
+        norm: typing.Union[Literal[False], Literal["max"], Literal["pct"], Literal["log"]] = "max",
+        dt: float = 0.1,
 ) -> Connectivity:
     """
     Load a mouse brain from the `mouse_brains` data folder. The mouse brain is processed

@@ -4,3 +4,5 @@ mpipool
 mpi4py
 plotly
 scipy
+pandas
+h5py

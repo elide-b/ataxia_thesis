@@ -4,7 +4,7 @@ from tvb.simulator.models.base import numpy
 from tvb.simulator.models.wong_wang_exc_inh import ReducedWongWangExcInh as TVBReducedWongWangExcInh
 
 
-@guvectorize([(float64[:],)*18], '(n),(m)' + ',()'*15 + '->(n)', nopython=True)
+@guvectorize([(float64[:],) * 18], '(n),(m)' + ',()' * 15 + '->(n)', nopython=True)
 def _numba_update_non_state_variables_before_integration(S, c,
                                                          ae, be, de, wp, we, jn,
                                                          ai, bi, di, wi, ji,
@@ -14,22 +14,22 @@ def _numba_update_non_state_variables_before_integration(S, c,
     newS[0] = S[0]  # S_e
     newS[1] = S[1]  # S_i
 
-    cc = g[0]*jn[0]*c[0]
+    cc = g[0] * jn[0] * c[0]
 
     jnSe = jn[0] * S[0]
 
     I_e = wp[0] * jnSe - ji[0] * S[1] + we[0] * io[0] + cc + ie[0]  # I_e
-    x = ae[0]*I_e - be[0]
-    h = x / (1 - numpy.exp(-de[0]*x))
+    x = ae[0] * I_e - be[0]
+    h = x / (1 - numpy.exp(-de[0] * x))
     newS[2] = h  # R_e
 
-    I_i = jnSe - S[1] + wi[0] * io[0] + l[0] * cc   # I_i
-    x = ai[0]*I_i - bi[0]
-    h = x / (1 - numpy.exp(-di[0]*x))
+    I_i = jnSe - S[1] + wi[0] * io[0] + l[0] * cc  # I_i
+    x = ai[0] * I_i - bi[0]
+    h = x / (1 - numpy.exp(-di[0] * x))
     newS[3] = h  # R_i
 
 
-@guvectorize([(float64[:],)*7], '(n),(m)' + ',()'*4 + '->(n)', nopython=True)
+@guvectorize([(float64[:],) * 7], '(n),(m)' + ',()' * 4 + '->(n)', nopython=True)
 def _numba_dfun(S, R, ge, te, gi, ti, dx):
     "Gufunc for reduced Wong-Wang model equations."
     dx[0] = - (S[0] / te[0]) + (1.0 - S[0]) * R[0] * ge[0]
@@ -37,7 +37,6 @@ def _numba_dfun(S, R, ge, te, gi, ti, dx):
 
 
 class ReducedWongWangExcIOInhI(TVBReducedWongWangExcInh):
-
     r"""
     .. [WW_2006] Kong-Fatt Wong and Xiao-Jing Wang,  *A Recurrent Network
                 Mechanism of Time Integration in Perceptual Decisions*.
@@ -121,7 +120,7 @@ class ReducedWongWangExcIOInhI(TVBReducedWongWangExcInh):
                     state_variables.reshape(state_variables.shape[:-1]).T,
                     coupling.reshape(coupling.shape[:-1]).T +
                     local_coupling * state_variables[0],
-                    self.a_e, self.b_e, self.d_e,  self.w_p, self.W_e, self.J_N,
+                    self.a_e, self.b_e, self.d_e, self.w_p, self.W_e, self.J_N,
                     self.a_i, self.b_i, self.d_i, self.W_i, self.J_i,
                     self.G, self.lamda, self.I_o, self.I_ext)
             return state_variables.T[..., numpy.newaxis]
@@ -147,7 +146,7 @@ class ReducedWongWangExcIOInhI(TVBReducedWongWangExcInh):
         # TODO: Confirm that this computation is correct for this model depending on the r_e and r_i values!
         I_e = self.w_p * J_N_S_e - self.J_i * S[1] + self.W_e * self.I_o + coupling + self.I_ext
         x_e = self.a_e * I_e - self.b_e
-        R_e =  x_e / (1 - numpy.exp(-self.d_e * x_e))
+        R_e = x_e / (1 - numpy.exp(-self.d_e * x_e))
 
         I_i = J_N_S_e - S[1] + self.W_i * self.I_o + self.lamda * coupling
         x_i = self.a_i * I_i - self.b_i
@@ -160,7 +159,7 @@ class ReducedWongWangExcIOInhI(TVBReducedWongWangExcInh):
         return state_variables
 
     def _integration_to_state_variables(self, integration_variables):
-        return numpy.array(integration_variables.tolist() + [0.0*integration_variables[0]] * self.n_nonintvar)
+        return numpy.array(integration_variables.tolist() + [0.0 * integration_variables[0]] * self.n_nonintvar)
 
     def _numpy_dfun(self, integration_variables, R):
         r"""
@@ -177,7 +176,7 @@ class ReducedWongWangExcIOInhI(TVBReducedWongWangExcInh):
 
         """
 
-        S = integration_variables[:2, :]     # Synaptic gating dynamics
+        S = integration_variables[:2, :]  # Synaptic gating dynamics
 
         # Synaptic gating dynamics
         dS_e = - (S[0] / self.tau_e) + (1 - S[0]) * R[0] * self.gamma_e
@@ -202,4 +201,3 @@ class ReducedWongWangExcIOInhI(TVBReducedWongWangExcInh):
         #  for multistep integration schemes such as Runge-Kutta:
         self._R = None
         return deriv
-

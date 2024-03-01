@@ -10,17 +10,17 @@ from rww_exc_inh.rww_model_mary import ReducedWongWangExcIOInhI
 
 
 def simulate(
-    brain,
-    simlen,
-    dt=0.1,
-    I_o=0.3,
-    w=1.0,
-    stoc=True,
-    sigma=0.015,
-    coupling="scaling",
-    G=0.11,
-    bold_res=10000,
-    tavg_res=10,
+        brain,
+        simlen,
+        dt=0.1,
+        I_o=0.3,
+        w=1.0,
+        stoc=True,
+        sigma=0.015,
+        coupling="scaling",
+        G=0.11,
+        bold_res=10000,
+        tavg_res=10,
 ):
     simulator = Simulator()
     simulator.connectivity = brain
@@ -36,7 +36,7 @@ def simulate(
     if stoc:
         simulator.integrator = HeunStochastic(dt=dt)
         simulator.integrator.noise = noise.Additive(
-            nsig=np.array([(sigma**2) / 2]), noise_seed=1
+            nsig=np.array([(sigma ** 2) / 2]), noise_seed=1
         )
     else:
         simulator.integrator = EulerDeterministic(dt=dt)

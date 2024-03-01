@@ -1,5 +1,5 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 with np.load("firing_rate_normal.npz") as rates:
     t = rates['time']
@@ -24,5 +24,5 @@ plt.title('Firing rates')
 plt.legend()
 plt.show()
 
-print(np.mean(np.mean(R_e[100:,:],axis=1)))
-print(np.mean(np.mean(R_i[100:,:],axis=1)))
+print(np.mean(np.mean(R_e[100:, :], axis=1)))
+print(np.mean(np.mean(R_i[100:, :], axis=1)))

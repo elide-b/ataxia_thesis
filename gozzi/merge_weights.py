@@ -1,9 +1,12 @@
-import numpy as np
-from connectivity import load_mousebrain
-import pandas as pd
-import matplotlib.pyplot as plt
-from copy import deepcopy
 import json
+from copy import deepcopy
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+from connectivity import load_mousebrain
+
 voxel = json.loads(open('voxels.json', 'r').read())
 
 conn_oh = load_mousebrain("Connectivity_02531729cb0d470d9a62dcff9158a952.h5", norm=False, scale=False)

@@ -1,7 +1,5 @@
-import numpy as np
-
-from super_awesome_grid_search import grid_search
 from one_sim import one_simulation
+from super_awesome_grid_search import grid_search
 
 
 def evaluate(G):

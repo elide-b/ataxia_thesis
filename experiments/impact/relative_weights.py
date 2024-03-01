@@ -1,11 +1,11 @@
-import dataclasses
 import itertools
 
+import dataclasses
 import numpy as np
+import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 
 from connectivity import get_cereb_region_mask, load_mousebrain
-import plotly.graph_objs as go
 
 brain = load_mousebrain("allen84.zip")
 is_cereb = get_cereb_region_mask(brain)
@@ -89,9 +89,8 @@ nodes = {
 edges = {}
 used_nodes = set()
 
-
 for i, l, c, row in zip(
-    itertools.count(), brain.region_labels, is_cereb, brain.weights
+        itertools.count(), brain.region_labels, is_cereb, brain.weights
 ):
     for pi, perm in enumerate(perm_test):
         if i in perm:
@@ -102,7 +101,7 @@ for i, l, c, row in zip(
     if c:
         c_w.extend(row)
         for to_i, to_l, to_c, edge_w in zip(
-            itertools.count(), brain.region_labels, is_cereb, row
+                itertools.count(), brain.region_labels, is_cereb, row
         ):
             if edge_w > 0.05:
                 to_node = nodes[get_node_name(to_l)]

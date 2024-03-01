@@ -1,10 +1,10 @@
-import numpy as np
-from scipy.io import loadmat
-import pandas as pd
-from plots import plot_fc, plot_bold_timeseries
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from scipy.io import loadmat
 from tvb.simulator.lab import *
 
+from plots import plot_fc, plot_bold_timeseries
 from rww_exc_inh.rww_model_mary import *
 
 

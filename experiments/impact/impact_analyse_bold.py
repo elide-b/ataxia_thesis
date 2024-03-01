@@ -1,10 +1,7 @@
 import numpy as np
 import plotly.graph_objs as go
-from plotly.subplots import make_subplots
 
-from ataxia.connectivity import get_cereb_region_mask
 from ataxia.experiment import Experiment
-from ataxia.plots import plot_matrix
 
 experiment, meta = Experiment.load("impact")
 

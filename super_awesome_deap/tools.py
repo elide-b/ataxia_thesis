@@ -46,9 +46,9 @@ class Individual(list):
 
     def __str__(self):
         return (
-            f"<{type(self).__name__} "
-            + ", ".join(f"{p.name}={v}" for p, v in self.items())
-            + ">"
+                f"<{type(self).__name__} "
+                + ", ".join(f"{p.name}={v}" for p, v in self.items())
+                + ">"
         )
 
     def keys(self):

@@ -1,18 +1,18 @@
+import os
+import time
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from scipy.io import loadmat
+from scipy.stats import ks_2samp
 from tvb.datatypes.connectivity import Connectivity
 from tvb.simulator import noise
-from tvb.simulator.coupling import Linear, Scaling
-from tvb.simulator.integrators import EulerDeterministic, HeunStochastic
+from tvb.simulator.coupling import Scaling
+from tvb.simulator.integrators import HeunStochastic
 from tvb.simulator.models.wong_wang_exc_inh import ReducedWongWangExcInh
-from tvb.simulator.monitors import Bold, TemporalAverage
+from tvb.simulator.monitors import Bold
 from tvb.simulator.simulator import Simulator
-import numpy as np
-import matplotlib.pyplot as plt
-import time
-from scipy.io import loadmat
-import os
-import pandas as pd
-from scipy.stats import ks_2samp
-from connectivity import load_mousebrain
 
 
 def load_emp(MOUSE_ID='ag171031a'):
@@ -30,7 +30,8 @@ def load_emp(MOUSE_ID='ag171031a'):
     bold_data = pd.DataFrame(bold_data)
     return regions_labels_tot, bold_data
 
-def plot_connectivity(conn, show=True, save = False):
+
+def plot_connectivity(conn, show=True, save=False):
     plt.title('Connectivty weigths')
     plt.imshow(conn.weights)
     plt.colorbar()
@@ -39,7 +40,8 @@ def plot_connectivity(conn, show=True, save = False):
     if show:
         plt.show()
 
-def plot_fc(FC_mat, show=False,save = True):
+
+def plot_fc(FC_mat, show=False, save=True):
     plt.title('Simulated FC')
     plt.imshow(FC_mat)
     plt.colorbar()
@@ -48,15 +50,16 @@ def plot_fc(FC_mat, show=False,save = True):
     if show:
         plt.show()
 
-def plot_timeseries(t,data,show=False, save = True):
-    plt.plot(t,data)
+
+def plot_timeseries(t, data, show=False, save=True):
+    plt.plot(t, data)
     if save:
         plt.savefig('timeseries.png')
     if show:
         plt.show()
 
-def prepare_conn(conn, normalize=True, log_trans=True, percitile=99, dt=0.1, show=True):
 
+def prepare_conn(conn, normalize=True, log_trans=True, percitile=99, dt=0.1, show=True):
     # Apply log transform
     if log_trans:
         w = conn.weights.copy()
@@ -73,7 +76,7 @@ def prepare_conn(conn, normalize=True, log_trans=True, percitile=99, dt=0.1, sho
     if normalize:
         conn.weights = conn.weights / np.max(conn.weights)
     # Scale for the given percentile
-    #conn.weights /= np.percentile(conn.weights, percitile)
+    # conn.weights /= np.percentile(conn.weights, percitile)
 
     # tract lenghts check
     conn.speed = np.array(3.)
@@ -100,7 +103,7 @@ def simulate(conn,
     simulator.integrator = HeunStochastic(dt=dt)
     simulator.integrator.noise = noise.Additive(nsig=np.array([(sigma ** 2) / 2]))
     mon_bold = Bold(period=dt * bold_resolution)
-    #mon_tavg = TemporalAverage(period=dt*tavg_resolution)
+    # mon_tavg = TemporalAverage(period=dt*tavg_resolution)
     simulator.monitors = (mon_bold,)
     simulator.configure()
     print('Starting sim...')
@@ -111,7 +114,9 @@ def simulate(conn,
     print('Simulation time: ', end_time - start_time)
     return t1, bold
 
+
 fcds = []
+
 
 def compute_fcd(bold_data, tau=60, w_step=20):
     global fcds
@@ -136,6 +141,7 @@ def compute_fcd(bold_data, tau=60, w_step=20):
     fcds.append(triu_FC_windows)
     return fcd
 
+
 def common_regions(regions1, regions2):
     common_regs = [reg for reg in regions1 if reg in regions2]
     ncommon = len(common_regs)
@@ -144,6 +150,7 @@ def common_regions(regions1, regions2):
     inds2 = [list(regions2).index(reg) for reg in common_regs]
 
     return inds1, inds2
+
 
 def predictive_power(conn1, conn2, regions1=None, regions2=None):
     if regions1 is None and regions2 is None:
@@ -162,9 +169,9 @@ def predictive_power(conn1, conn2, regions1=None, regions2=None):
     pp = np.corrcoef(conn1[offdiag_mask],
                      conn2[offdiag_mask])[1, 0]
 
-    #empFC_wb = np.triu(conn1, 1)  # triangle matrix
-    #simFC_wb = np.triu(conn2, 1)
-    #pcc_wb = np.corrcoef(empFC_wb.ravel(), simFC_wb.ravel())[0, 1]
+    # empFC_wb = np.triu(conn1, 1)  # triangle matrix
+    # simFC_wb = np.triu(conn2, 1)
+    # pcc_wb = np.corrcoef(empFC_wb.ravel(), simFC_wb.ravel())[0, 1]
 
     return pp
 
@@ -177,18 +184,18 @@ conn.region_labels = np.genfromtxt(INPUT_PATH + '/region_labels_merged_oh.txt', 
 conn.tract_lengths = np.loadtxt(INPUT_PATH + '/tract_lengths_merged_oh.txt')
 
 final_conn = prepare_conn(conn, show=False, normalize=True, log_trans=True)
-#plot_connectivity(final_conn,show=False,save=True)
+# plot_connectivity(final_conn,show=False,save=True)
 
 
 transient = 4
-t1, bold = simulate(final_conn, sim_len=1000*1869, dt=1, G=0.01, bold_resolution=1000)
+t1, bold = simulate(final_conn, sim_len=1000 * 1869, dt=1, G=0.01, bold_resolution=1000)
 fc_sim = np.corrcoef(bold[transient:, 0, :, 0], rowvar=False)
 print('Point BOLD: ', bold.shape[0])
 plot_fc(fc_sim, show=True)
-#np.save("bold.npy", bold)
-#np.save("time.npy", t1)
-#plot_timeseries(t1[4:],bold[4:,0,:,0], show=True)
-#plot_timeseries(t2[4:],tavg[4:,0,:,0],show=True)
+# np.save("bold.npy", bold)
+# np.save("time.npy", t1)
+# plot_timeseries(t1[4:],bold[4:,0,:,0], show=True)
+# plot_timeseries(t2[4:],tavg[4:,0,:,0],show=True)
 
 
 regions_gozzi, bold_emp = load_emp()
@@ -197,7 +204,6 @@ regions_gozzi, bold_emp = load_emp()
 fc_emp = np.corrcoef(bold_emp, rowvar=False)
 corr_fc = predictive_power(fc_sim, fc_emp, final_conn.region_labels, regions_gozzi)
 print('Predictive power sim vs emp (Static FC):', corr_fc)
-
 
 # levare da region gozzi il corrispondente del caudoputamen e sostituirlo con la relativa area di gozzi (sostituito in
 # region_labels_oh_merged.txt)

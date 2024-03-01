@@ -1,9 +1,8 @@
 import numpy as np
 import plotly.graph_objs as go
-from plotly.subplots import make_subplots
-
 from ataxia.connectivity import get_cereb_region_mask
 from ataxia.experiment import Experiment
+from plotly.subplots import make_subplots
 
 experiment, meta = Experiment.load("impact")
 means = np.mean(experiment.tavg[0], axis=2)
@@ -20,10 +19,10 @@ go.Figure(
             y=node_means,
         )
         for label, is_cereb, node_means in zip(
-            meta["brain"].region_labels[np.argsort(meandiff)[::-1]],
-            get_cereb_region_mask(meta["brain"])[np.argsort(meandiff)[::-1]],
-            (means - means[0]).T[np.argsort(meandiff)[::-1]],
-        )
+        meta["brain"].region_labels[np.argsort(meandiff)[::-1]],
+        get_cereb_region_mask(meta["brain"])[np.argsort(meandiff)[::-1]],
+        (means - means[0]).T[np.argsort(meandiff)[::-1]],
+    )
     ],
     layout=dict(
         title_text=f"Response to change in cerebellar weights (assuming weights[{wlabel}])",
@@ -44,10 +43,10 @@ go.Figure(
             y=node_means,
         )
         for label, is_cereb, node_means in zip(
-            meta["brain"].region_labels[np.argsort(remaindiff)[::-1]],
-            get_cereb_region_mask(meta["brain"])[np.argsort(remaindiff)[::-1]],
-            ((means - means[0]) / (1 - means[0])).T[np.argsort(remaindiff)[::-1]],
-        )
+        meta["brain"].region_labels[np.argsort(remaindiff)[::-1]],
+        get_cereb_region_mask(meta["brain"])[np.argsort(remaindiff)[::-1]],
+        ((means - means[0]) / (1 - means[0])).T[np.argsort(remaindiff)[::-1]],
+    )
     ],
     layout=dict(
         title_text=f"Response to change in cerebellar weights (assuming weights[{wlabel}])",
