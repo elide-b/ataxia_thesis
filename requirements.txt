@@ -6,3 +6,6 @@ plotly
 scipy
 pandas
 h5py
+xlrd
+openpyxl
+mne_connectivity

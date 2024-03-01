@@ -1,8 +1,6 @@
-import sys
-
-sys.path.append('/Users/marialauradegrazia/Desktop/my_TVB/TVMB_ongoing')
-
 import numpy as np
+from matplotlib import pyplot as plt
+
 from connectivity import load_mousebrain
 import pandas as pd
 
@@ -143,6 +141,7 @@ for key, list in final_dict_areas.items():
 
     # delete the axes
     centres = np.delete(centres, inds_to_merge, axis=0)
+
     # build new axis of merged regions
     new0 = np.squeeze(conn_oh.centres[inds_to_merge_oh])
     weights = [df_voxel.loc[df_voxel['Regions'] == reg, 'Voxel Count'].values for reg in regs_to_merge]
@@ -153,18 +152,17 @@ for key, list in final_dict_areas.items():
 
 print('Shape centres', centres.shape)
 print('Len labels', len(labels))
-# np.savetxt('centres_oh_merged.txt', centres)
-# np.savetxt('region_labels_oh_merged.txt', labels, fmt='%s')
+np.savetxt('centres_oh_merged.txt', centres)
+np.savetxt('region_labels_oh_merged.txt', labels, fmt='%s')
 
 
 # Build new tracts from the new centres
-
 n_regs = len(labels)
 tract_lengths = np.zeros((n_regs, n_regs))
 
 
 def distance(p1, p2):
-    "Compute euclidean distance between two points."
+    """Compute Euclidean distance between two points."""
     return np.linalg.norm(p1 - p2)
 
 
@@ -174,19 +172,19 @@ for i in range(n_regs):
         tract_lengths[i, j] = lt
         tract_lengths[j, i] = lt
 
-# plt.imshow(tract_lengths)
-# plt.colorbar()
-# plt.show()
+plt.imshow(tract_lengths)
+plt.colorbar()
+plt.show()
 
 
 # for only gozzi regions
 print('For Gozzi')
 
 inds_gozzi = [i for i, reg in enumerate(labels) if reg in regions_labels_gozzi]
-# reg_gozzi = [reg for i,reg in enumerate(labels) if reg in regions_labels_gozzi]
+reg_gozzi = [reg for i,reg in enumerate(labels) if reg in regions_labels_gozzi]
 labels_gozzi = labels[inds_gozzi]
-# np.savetxt('labels_gozzi.txt', labels_gozzi, fmt='%s')
+np.savetxt('labels_gozzi.txt', labels_gozzi, fmt='%s')
 centres_gozzi = centres[inds_gozzi, :]
-# np.savetxt('centres_gozzi.txt', centres_gozzi)
+np.savetxt('centres_gozzi.txt', centres_gozzi)
 tract_gozzi = tract_lengths[np.ix_(inds_gozzi, inds_gozzi)]
-# np.savetxt('tract_lengths_gozzi.txt', tract_gozzi)
+np.savetxt('tract_lengths_gozzi.txt', tract_gozzi)

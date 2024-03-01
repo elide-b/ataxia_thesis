@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append('/home/marialaura/Scrivania/TVMB_ongoing')
-
 import numpy as np
 from connectivity import load_mousebrain
 import pandas as pd
@@ -27,10 +23,11 @@ to_plot = ['Right Primary motor area', 'Right Secondary motor area', 'Right Prim
 inds_to_plot = [i for i, reg in enumerate(conn_oh.region_labels) if reg in to_plot]
 
 # remove Posterior parietal association areas (not in OH atlas)
-# to_remove = ['PTLp']
-# i_to_remove = [i for i,acro in enumerate(acro_gozzi) if acro in to_remove]
-# acro_gozzi.pop(i_to_remove[0])
-# macro_gozzi.pop(i_to_remove[0])
+
+to_remove = ['PTLp']
+i_to_remove = [i for i, acro in enumerate(acro_gozzi) if acro in to_remove]
+acro_gozzi.pop(i_to_remove[0])
+macro_gozzi.pop(i_to_remove[0])
 
 
 bilateral_acro = []
@@ -59,26 +56,13 @@ with open(labels_path, 'r') as file:
     labels_gozzi = [line.strip() for line in file]
 
 weight_matrix = np.loadtxt('results/only_gozzi/weights_gozzi.txt')
-# norm_weight = weight_matrix/np.max(weight_matrix)
 w = weight_matrix.copy()
 w[np.isnan(w)] = 0.0
-
 w[w <= 0] = 0
 w /= np.max(w)
 w += 1
 w = np.log(w)
-
-"""
-w0 = w <= 0
-w_positive = w > 0
-w /= w[w_positive].min()
-w *= np.exp(1)
-
-w[w_positive] = np.log(w[w_positive])
-w[w0] = 0.0
-"""
 weight_matrix = w
-# norm_weights = weight_matrix/np.max(weight_matrix)
 
 sub1 = 'R-Isocortex'
 sub2 = 'L-Isocortex'
