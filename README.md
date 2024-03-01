@@ -10,6 +10,7 @@ The aim of this thesis is to explore brain modeling in mice with the use of The 
 ## Installation
 
 The code is meant to be run using the infrastructure provided by The Virtual Brain. All required python libraries are contained in the requirements.txt file.
+
 pip install -r requirements.txt
 
 The mice dataset are not included in this repository due to space availability issues. All mouse dataset should work with this code.
